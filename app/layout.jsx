@@ -1,14 +1,17 @@
-import './globals.css'
+import '../styles/globals.css';
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, title }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.jsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+      <head>
+        <title>{title ? `${title} - A.M.I.G.A.O` : 'A.M.I.G.A.'}</title>
+        <link rel="preconnect" href="https://stijndv.com" />
+        <link
+          rel="stylesheet"
+          href="https://stijndv.com/fonts/Eudoxus-Sans.css"
+        />
+      </head>
       <body>{children}</body>
     </html>
-  )
+  );
 }
