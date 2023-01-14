@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import InputMask from 'react-input-mask';
 
 const RegisterForm = () => {
   const [register, setRegister] = useState('');
@@ -22,21 +23,17 @@ const RegisterForm = () => {
   const [cellphone, setCellphone] = useState('');
   const [status, setStatus] = useState('');
   const [lunchFryday, setLunchFryday] = useState('');
-  const [lunchFrydayValue, setLunchFrydayValue] = useState('');
   const [lunchSaturday, setLunchSaturday] = useState('');
-  const [lunchSaturdayValue, setLunchSaturdayValue] = useState('');
+  const [buyShirt, setBuyShirt] = useState('');
   const [shirtSize, setShirtSize] = useState('');
-  const [shirtValue, setShirtValue] = useState('');
-  const [guests, setGuests] = useState('');
+  const [manyGuests, setManyGuests] = useState('');
   const [guestName, setGuestName] = useState('');
   const [guestRg, setGuestRg] = useState('');
   const [guestKinship, setGuestKinship] = useState('');
   const [guestLunchFryday, setGuestLunchFryday] = useState('');
-  const [guestLunchFrydayValue, setGuestLunchFrydayValue] = useState('');
   const [guestLunchSaturday, setGuestLunchSaturday] = useState('');
-  const [guestLunchSaturdayValue, setGuestLunchSaturdayValue] = useState('');
+  const [guestBuyShirt, setGuestBuyShirt] = useState('');
   const [guestShirtSize, setGuestShirtSize] = useState('');
-  const [guestShirtValue, setGuestShirtValue] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +44,7 @@ const RegisterForm = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`/api/registers/${e}`, {
       method: 'POST',
@@ -73,25 +70,21 @@ const RegisterForm = () => {
         cellphone,
         status,
         lunchFryday,
-        lunchFrydayValue,
         lunchSaturday,
-        lunchSaturdayValue,
+        buyShirt,
         shirt: {
           size: shirtSize,
-          value: shirtValue,
         },
-        guests,
+        manyGuests,
         guest: {
           name: guestName,
           rg: guestRg,
           kinship: guestKinship,
           lunchFryday: guestLunchFryday,
-          lunchFrydayValue: guestLunchFrydayValue,
           lunchSaturday: guestLunchSaturday,
-          lunchSaturdayValue: guestLunchSaturdayValue,
+          guestBuyShirt,
           shirt: {
             size: guestShirtSize,
-            value: guestShirtValue,
           },
         },
       }),
@@ -99,6 +92,18 @@ const RegisterForm = () => {
     const result = await response.json();
     console.log(result);
     console.log(register);
+  };
+  const generateYears = () => {
+    const currentYear = new Date().getFullYear();
+    const options = [];
+    for (let i = currentYear - 60; i <= currentYear - 35; i += 1) {
+      options.push(
+        <option key={i} value={i}>
+          {i}
+        </option>,
+      );
+    }
+    return options;
   };
   return (
     <form
@@ -114,7 +119,7 @@ const RegisterForm = () => {
           type="text"
           id="name"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           required
         />
       </div>
@@ -130,7 +135,7 @@ const RegisterForm = () => {
           type="text"
           id="stageName"
           value={stageName}
-          onChange={e => setStageName(e.target.value)}
+          onChange={(e) => setStageName(e.target.value)}
           required
         />
       </div>
@@ -141,25 +146,53 @@ const RegisterForm = () => {
         >
           Posto/Graduação:
         </label>
-        <input
+        <select
           className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
           id="postGraduation"
           value={postGraduation}
-          onChange={e => setPostGraduation(e.target.value)}
+          onChange={(e) => setPostGraduation(e.target.value)}
           required
-        />
+        >
+          <option value="" disabled>
+            Selecione uma opção
+          </option>
+          <optgroup label="Postos">
+            <option value="Tenente-Coronel">Tenente-Coronel</option>
+            <option value="Major">Major</option>
+            <option value="Capitão">Capitão</option>
+            <option value="1º Tenente">1º Tenente</option>
+            <option value="2º Tenente">2º Tenente</option>
+            <option value="Aspirante-a-Oficial">Aspirante-a-Oficial</option>
+          </optgroup>
+          <optgroup label="Graduações">
+            <option value="General de Divisão">General de Divisão</option>
+            <option value="General de Brigada">General de Brigada</option>
+            <option value="Brigadeiro">Brigadeiro</option>
+            <option value="Coronel">Coronel</option>
+            <option value="Tenente-Coronel">Tenente-Coronel</option>
+            <option value="Major">Major</option>
+            <option value="Capitão">Capitão</option>
+            <option value="Aspirante-a-Oficial">Aspirante-a-Oficial</option>
+          </optgroup>
+        </select>
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-2" htmlFor="CPF">
           CPF:
         </label>
-        <input
+        <InputMask
           className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
+          mask="999.999.999-99"
           id="CPF"
           value={CPF}
-          onChange={e => setCPF(e.target.value)}
+          onChange={(e) => {
+            const cpf = e.target.value.toString().replace(/\D/g, '');
+            if (cpf.length <= 11) {
+              setCPF(e.target.value);
+            } else {
+              alert('O CPF deve conter 11 dígitos');
+            }
+          }}
           required
         />
       </div>
@@ -175,7 +208,7 @@ const RegisterForm = () => {
           type="text"
           id="rgCivil"
           value={rgCivil}
-          onChange={e => setRgCivil(e.target.value)}
+          onChange={(e) => setRgCivil(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -190,19 +223,27 @@ const RegisterForm = () => {
           type="text"
           id="rgMilitary"
           value={rgMilitary}
-          onChange={e => setRgMilitary(e.target.value)}
+          onChange={(e) => setRgMilitary(e.target.value)}
         />
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-2" htmlFor="CEP">
           CEP:
         </label>
-        <input
+        <InputMask
           className="w-full border border-gray-400 p-2 rounded-lg"
           type="text"
+          mask="99 999 - 999"
           id="CEP"
           value={CEP}
-          onChange={e => setCEP(e.target.value)}
+          onChange={(e) => {
+            const cep = e.target.value.toString().replace(/\D/g, '');
+            if (cep.length <= 8) {
+              setCEP(e.target.value);
+            } else {
+              alert('O CEP deve conter 8 dígitos');
+            }
+          }}
           required
         />
       </div>
@@ -218,7 +259,7 @@ const RegisterForm = () => {
           type="text"
           id="number"
           value={number}
-          onChange={e => setNumber(e.target.value)}
+          onChange={(e) => setNumber(e.target.value)}
           required
         />
       </div>
@@ -234,7 +275,7 @@ const RegisterForm = () => {
           type="text"
           id="address"
           value={address}
-          onChange={e => setAddress(e.target.value)}
+          onChange={(e) => setAddress(e.target.value)}
           required
         />
       </div>
@@ -250,7 +291,7 @@ const RegisterForm = () => {
           type="text"
           id="neighborhood"
           value={neighborhood}
-          onChange={e => setNeighborhood(e.target.value)}
+          onChange={(e) => setNeighborhood(e.target.value)}
           required
         />
       </div>
@@ -263,7 +304,7 @@ const RegisterForm = () => {
           type="text"
           id="city"
           value={city}
-          onChange={e => setCity(e.target.value)}
+          onChange={(e) => setCity(e.target.value)}
           required
         />
       </div>
@@ -276,7 +317,7 @@ const RegisterForm = () => {
           type="text"
           id="uf"
           value={uf}
-          onChange={e => setUf(e.target.value)}
+          onChange={(e) => setUf(e.target.value)}
           required
         />
       </div>
@@ -285,15 +326,16 @@ const RegisterForm = () => {
           className="block text-gray-700 font-medium mb-2"
           htmlFor="formation"
         >
-          Formação:
+          Ano de Formação:
         </label>
-        <input
+        <select
           className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
           id="formation"
           value={formation}
-          onChange={e => setFormation(e.target.value)}
-        />
+          onChange={(e) => setFormation(e.target.value)}
+        >
+          {generateYears()}
+        </select>
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
@@ -304,7 +346,7 @@ const RegisterForm = () => {
           type="email"
           id="email"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -314,12 +356,13 @@ const RegisterForm = () => {
         >
           Telefone:
         </label>
-        <input
+        <InputMask
           className="w-full border border-gray-400 p-2 rounded-lg"
           type="tel"
+          mask="(99) 9 9999 - 9999"
           id="tellphone"
           value={tellphone}
-          onChange={e => setTellphone(e.target.value)}
+          onChange={(e) => setTellphone(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -329,12 +372,13 @@ const RegisterForm = () => {
         >
           Celular:
         </label>
-        <input
+        <InputMask
           className="w-full border border-gray-400 p-2 rounded-lg"
           type="tel"
+          mask="(99) 9 9999 - 9999"
           id="cellphone"
           value={cellphone}
-          onChange={e => setCellphone(e.target.value)}
+          onChange={(e) => setCellphone(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -342,124 +386,130 @@ const RegisterForm = () => {
           className="block text-gray-700 font-medium mb-2"
           htmlFor="status"
         >
-          Status:
+          Status do militar:
         </label>
-        <input
+        <select
           className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
           id="status"
           value={status}
-          onChange={e => setStatus(e.target.value)}
+          onChange={(e) => setStatus(e.target.value)}
           required
-        />
+        >
+          <option value="inativo">Inativo</option>
+          <option value="ativo">Ativo</option>
+          <option value="reformado">Reformado</option>
+        </select>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
           htmlFor="lunchFryday"
         >
-          Almoço Sexta-feira:
+          Incluir almoço sexta-feira:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="lunchFryday"
-          value={lunchFryday}
-          onChange={e => setLunchFryday(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="lunchFrydayValue"
-        >
-          Valor Almoço Sexta-feira:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="lunchFrydayValue"
-          value={lunchFrydayValue}
-          onChange={e => setLunchFrydayValue(e.target.value)}
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="lunchFryday"
+            checked={lunchFryday}
+            onChange={(e) => setLunchFryday(e.target.checked)}
+          />
+          {lunchFryday === true ? <div>Incluído</div> : <div>Não incluído</div>}
+        </div>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
           htmlFor="lunchSaturday"
         >
-          Almoço Sábado:
+          Incluir almoço sexta-feira:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="lunchSaturday"
-          value={lunchSaturday}
-          onChange={e => setLunchSaturday(e.target.value)}
-          required
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="lunchSaturday"
+            checked={lunchSaturday}
+            onChange={(e) => setLunchSaturday(e.target.checked)}
+          />
+          {lunchSaturday === true ? (
+            <div>Incluído</div>
+          ) : (
+            <div>Não incluído</div>
+          )}
+        </div>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
-          htmlFor="lunchSaturdayValue"
+          htmlFor="buyShirt"
         >
-          Valor Almoço Sábado:
+          Incluir camisa:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="lunchSaturdayValue"
-          value={lunchSaturdayValue}
-          onChange={e => setLunchSaturdayValue(e.target.value)}
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="buyShirt"
+            checked={buyShirt}
+            onChange={(e) => setBuyShirt(e.target.checked)}
+          />
+          {buyShirt === true ? (
+            <>
+              <div>Incluído</div>{' '}
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 font-medium mb-2"
+                  htmlFor="shirtSize"
+                >
+                  Tamanho da camisa:
+                </label>
+                <select
+                  className="w-full border border-gray-400 p-2 rounded-lg"
+                  id="shirtSize"
+                  value={shirtSize}
+                  onChange={(e) => setShirtSize(e.target.value)}
+                >
+                  <option value="P">P</option>
+                  <option value="M">M</option>
+                  <option value="G">G</option>
+                  <option value="GG">GG</option>
+                  <option value="XG">XG</option>
+                  <option value="XGG">XGG</option>
+                </select>
+              </div>
+            </>
+          ) : (
+            <div>Não incluído</div>
+          )}
+        </div>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
-          htmlFor="shirtSize"
+          htmlFor="manyGuests"
         >
-          Tamanho da camisa:
+          Quantidade de acompanhantes
         </label>
-        <input
+        <select
           className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="shirtSize"
-          value={shirtSize}
-          onChange={e => setShirtSize(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="shirtValue"
+          id="manyGuests"
+          value={manyGuests}
+          onChange={(e) => setManyGuests(e.target.value)}
         >
-          Preço da camisa:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="shirtValue"
-          value={shirtValue}
-          onChange={e => setShirtValue(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="guests"
-        >
-          Acompanhante:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guests"
-          value={guests}
-          onChange={e => setGuests(e.target.value)}
-          required
-        />
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
       </div>
       <div className="mb-4">
         <label
@@ -473,8 +523,7 @@ const RegisterForm = () => {
           type="text"
           id="guestName"
           value={guestName}
-          onChange={e => setGuestName(e.target.value)}
-          required
+          onChange={(e) => setGuestName(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -489,8 +538,7 @@ const RegisterForm = () => {
           type="text"
           id="guestRg"
           value={guestRg}
-          onChange={e => setGuestRg(e.target.value)}
-          required
+          onChange={(e) => setGuestRg(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -505,8 +553,7 @@ const RegisterForm = () => {
           type="text"
           id="guestKinship"
           value={guestKinship}
-          onChange={e => setGuestKinship(e.target.value)}
-          required
+          onChange={(e) => setGuestKinship(e.target.value)}
         />
       </div>
       <div className="mb-4">
@@ -514,94 +561,89 @@ const RegisterForm = () => {
           className="block text-gray-700 font-medium mb-2"
           htmlFor="guestLunchFryday"
         >
-          Almoço Sexta Acompanhante:
+          Incluir almoço sexta-feira:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestLunchFryday"
-          value={guestLunchFryday}
-          onChange={e => setGuestLunchFryday(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="guestLunchFrydayValue"
-        >
-          Valor Almoço Sexta Acompanhante:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestLunchFrydayValue"
-          value={guestLunchFrydayValue}
-          onChange={e => setGuestLunchFrydayValue(e.target.value)}
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="guestLunchFryday"
+            checked={guestLunchFryday}
+            onChange={(e) => setGuestLunchFryday(e.target.checked)}
+          />
+          {guestLunchFryday === true ? (
+            <div>Incluído</div>
+          ) : (
+            <div>Não incluído</div>
+          )}
+        </div>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
           htmlFor="guestLunchSaturday"
         >
-          Almoço Sábado Acompanhante:
+          Incluir almoço de Sábado:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestLunchSaturday"
-          value={guestLunchSaturday}
-          onChange={e => setGuestLunchSaturday(e.target.value)}
-          required
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="guestLunchSaturday"
+            checked={guestLunchSaturday}
+            onChange={(e) => setGuestLunchSaturday(e.target.checked)}
+          />
+          {guestLunchSaturday === true ? (
+            <div>Incluído</div>
+          ) : (
+            <div>Não incluído</div>
+          )}
+        </div>
       </div>
       <div className="mb-4">
         <label
           className="block text-gray-700 font-medium mb-2"
-          htmlFor="guestLunchSaturdayValue"
+          htmlFor="guestBuyShirt"
         >
-          Valor Almoço Sábado Acompanhante:
+          Incluir camisa:
         </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestLunchSaturdayValue"
-          value={guestLunchSaturdayValue}
-          onChange={e => setGuestLunchSaturdayValue(e.target.value)}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="guestShirtSize"
-        >
-          Camisa Acompanhante:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestShirtSize"
-          value={guestShirtSize}
-          onChange={e => setGuestShirtSize(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 font-medium mb-2"
-          htmlFor="guestShirtValue"
-        >
-          Valor Camisa Acompanhante:
-        </label>
-        <input
-          className="w-full border border-gray-400 p-2 rounded-lg"
-          type="text"
-          id="guestShirtValue"
-          value={guestShirtValue}
-          onChange={e => setGuestShirtValue(e.target.value)}
-          required
-        />
+        <div className="flex text-center gap-x-2">
+          <input
+            className="border-2 rounded-full"
+            type="checkbox"
+            id="guestBuyShirt"
+            checked={guestBuyShirt}
+            onChange={(e) => setGuestBuyShirt(e.target.checked)}
+          />
+          {guestBuyShirt === true ? (
+            <>
+              <div>Incluído</div>{' '}
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 font-medium mb-2"
+                  htmlFor="guestShirtSize"
+                >
+                  Tamanho da camisa:
+                </label>
+                <select
+                  className="w-full border border-gray-400 p-2 rounded-lg"
+                  id="guestShirtSize"
+                  value={guestShirtSize}
+                  onChange={(e) => setGuestShirtSize(e.target.value)}
+                >
+                  <option value="P">P</option>
+                  <option value="M">M</option>
+                  <option value="G">G</option>
+                  <option value="GG">GG</option>
+                  <option value="XG">XG</option>
+                  <option value="XGG">XGG</option>
+                </select>
+              </div>
+            </>
+          ) : (
+            <div>Não incluído</div>
+          )}
+        </div>
       </div>
       <button
         type="submit"
