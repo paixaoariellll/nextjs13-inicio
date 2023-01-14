@@ -20,7 +20,6 @@ const handler = async (req, res) => {
     email: req.body.email,
     tellphone: req.body.tellphone,
     cellphone: req.body.cellphone,
-    status: req.body.status,
     lunchFryday: req.body.lunchFryday,
     lunchSaturday: req.body.lunchSaturday,
     buyShirt: req.body.buyShirt,

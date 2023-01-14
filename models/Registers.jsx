@@ -18,7 +18,6 @@ const registers = new mongoose.Schema(
     email: { type: String, required: false },
     tellphone: { type: String, required: false },
     cellphone: { type: String, required: false },
-    status: { type: String, required: false, default: 'inativo' },
     lunchFryday: { type: String, required: false },
     lunchSaturday: { type: String, required: false },
     buyShirt: { type: Boolean, required: false, default: false },

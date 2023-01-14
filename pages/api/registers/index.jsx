@@ -20,7 +20,6 @@ const postHandler = async (req, res) => {
     email: 'a',
     tellphone: 'a',
     cellphone: 'a',
-    status: 'a',
     lunchFryday: 'a',
     lunchSaturday: 'a',
     buyShirt: true,
