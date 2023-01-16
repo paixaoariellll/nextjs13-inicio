@@ -547,7 +547,13 @@ const RegisterForm = () => {
                       setPriceVeteran(priceVeteran + 40);
                     } else if (
                       e.target.value === 'false' &&
-                      priceVeteran >= 40
+                      priceVeteran >= 40 &&
+                      e.target.value === 'false' &&
+                      priceVeteran != 50 &&
+                      e.target.value === 'false' &&
+                      priceVeteran != 70 &&
+                      e.target.value === 'false' &&
+                      priceVeteran != 120
                     ) {
                       setPriceVeteran(priceVeteran - 40);
                     }
