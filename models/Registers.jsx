@@ -21,6 +21,8 @@ const registers = new mongoose.Schema(
     lunchFryday: { type: String, required: false },
     lunchSaturday: { type: String, required: false },
     buyShirt: { type: String, required: false },
+    priceVeteran: { type: Number, required: false },
+    priceGuest: { type: Object, required: false },
     shirt: {
       size: { type: String, required: false },
     },
@@ -33,6 +35,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -44,6 +47,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -55,6 +59,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -66,6 +71,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -77,6 +83,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -88,6 +95,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -99,6 +107,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -110,6 +119,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -121,6 +131,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },
@@ -132,6 +143,7 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
+        price: { type: Number, required: false, default: 0 },
         shirt: {
           size: { type: String, required: false },
         },

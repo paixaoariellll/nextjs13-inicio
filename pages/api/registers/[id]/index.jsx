@@ -23,6 +23,8 @@ const handler = async (req, res) => {
     lunchFryday: req.body.lunchFryday,
     lunchSaturday: req.body.lunchSaturday,
     buyShirt: req.body.buyShirt,
+    priceVeteran: req.body.priceVeteran,
+    priceGuest: req.body.priceGuest,
     shirt: {
       size: req.body.shirt.size,
     },
@@ -35,6 +37,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest1.lunchFryday,
         lunchSaturday: req.body.guest.guest1.lunchSaturday,
         guestBuyShirt: req.body.guest.guest1.guestBuyShirt,
+        price: req.body.guest.guest1.price,
         shirt: {
           size: req.body.guest.guest1.shirt.size,
         },
@@ -46,6 +49,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest2.lunchFryday,
         lunchSaturday: req.body.guest.guest2.lunchSaturday,
         guestBuyShirt: req.body.guest.guest2.guestBuyShirt,
+        price: req.body.guest.guest2.price,
         shirt: {
           size: req.body.guest.guest2.shirt.size,
         },
@@ -57,6 +61,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest3.lunchFryday,
         lunchSaturday: req.body.guest.guest3.lunchSaturday,
         guestBuyShirt: req.body.guest.guest3.guestBuyShirt,
+        price: req.body.guest.guest3.price,
         shirt: {
           size: req.body.guest.guest3.shirt.size,
         },
@@ -68,6 +73,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest4.lunchFryday,
         lunchSaturday: req.body.guest.guest4.lunchSaturday,
         guestBuyShirt: req.body.guest.guest4.guestBuyShirt,
+        price: req.body.guest.guest4.price,
         shirt: {
           size: req.body.guest.guest4.shirt.size,
         },
@@ -79,6 +85,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest5.lunchFryday,
         lunchSaturday: req.body.guest.guest5.lunchSaturday,
         guestBuyShirt: req.body.guest.guest5.guestBuyShirt,
+        price: req.body.guest.guest5.price,
         shirt: {
           size: req.body.guest.guest5.shirt.size,
         },
@@ -90,6 +97,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest6.lunchFryday,
         lunchSaturday: req.body.guest.guest6.lunchSaturday,
         guestBuyShirt: req.body.guest.guest6.guestBuyShirt,
+        price: req.body.guest.guest6.price,
         shirt: {
           size: req.body.guest.guest6.shirt.size,
         },
@@ -101,6 +109,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest7.lunchFryday,
         lunchSaturday: req.body.guest.guest7.lunchSaturday,
         guestBuyShirt: req.body.guest.guest7.guestBuyShirt,
+        price: req.body.guest.guest7.price,
         shirt: {
           size: req.body.guest.guest7.shirt.size,
         },
@@ -112,6 +121,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest8.lunchFryday,
         lunchSaturday: req.body.guest.guest8.lunchSaturday,
         guestBuyShirt: req.body.guest.guest8.guestBuyShirt,
+        price: req.body.guest.guest8.price,
         shirt: {
           size: req.body.guest.guest8.shirt.size,
         },
@@ -123,6 +133,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest9.lunchFryday,
         lunchSaturday: req.body.guest.guest9.lunchSaturday,
         guestBuyShirt: req.body.guest.guest9.guestBuyShirt,
+        price: req.body.guest.guest9.price,
         shirt: {
           size: req.body.guest.guest9.shirt.size,
         },
@@ -134,6 +145,7 @@ const handler = async (req, res) => {
         lunchFryday: req.body.guest.guest10.lunchFryday,
         lunchSaturday: req.body.guest.guest10.lunchSaturday,
         guestBuyShirt: req.body.guest.guest10.guestBuyShirt,
+        price: req.body.guest.guest10.price,
         shirt: {
           size: req.body.guest.guest10.shirt.size,
         },

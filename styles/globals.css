@@ -84,5 +84,5 @@ strong {
 
 /* components */
 .card{
-  @apply p-5 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 shadow-slate-300 hover:shadow-slate-400 rounded-md;
+  @apply p-5 bg-white shadow-md hover:shadow-xl transition-all hover:-translate-y-1 shadow-slate-300 hover:shadow-slate-400 rounded-md;
 }

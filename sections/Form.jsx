@@ -6,6 +6,8 @@ import InputMask from 'react-input-mask';
 const RegisterForm = () => {
   const [register, setRegister] = useState('');
   const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+  const [priceVeteran, setPriceVeteran] = useState(0);
   const [stageName, setStageName] = useState('');
   const [postGraduation, setPostGraduation] = useState('');
   const [CPF, setCPF] = useState('');
@@ -26,6 +28,9 @@ const RegisterForm = () => {
   const [buyShirt, setBuyShirt] = useState('');
   const [shirt, setShirt] = useState({ size: '' });
   const [manyGuests, setManyGuests] = useState('');
+  const [priceGuest, setPriceGuest] = useState(
+    Array.from({ length: manyGuests }, () => 0),
+  );
   const [guest, setGuest] = useState({
     guest1: {
       name: '',
@@ -138,44 +143,6 @@ const RegisterForm = () => {
       },
     },
   });
-  /*   const handleSubmit = (e) => {
-    e.preventDefault();
-    const newRegister = {
-      name,
-      stageName,
-      postGraduation,
-      CPF,
-      rgCivil,
-      rgMilitary,
-      CEP,
-      number,
-      address,
-      neighborhood,
-      city,
-      uf,
-      formation,
-      email,
-      tellphone,
-      cellphone,
-      lunchFryday,
-      lunchSaturday,
-      buyShirt,
-      shirt,
-      manyGuests,
-      guest,
-    };
-    // make a post request to the server
-    axios
-      .post(`/api/registers/${e}`, newRegister)
-      .then((res) => {
-        console.log(res.data);
-        // redirect to success page
-      })
-      .catch((err) => {
-        console.log(err);
-        // show error message
-      });
-  }; */
 
   useEffect(() => {
     const fetchData = async () => {
@@ -214,8 +181,11 @@ const RegisterForm = () => {
         lunchSaturday,
         buyShirt,
         shirt,
+        priceVeteran,
         manyGuests,
         guest,
+        priceVeteran,
+        priceGuest,
       }),
     });
     const result = await response.json();
@@ -246,14 +216,24 @@ const RegisterForm = () => {
         setUf(data.uf);
       });
   };
+
+  function calculateTotalPrice() {
+    let total = 0;
+    for (let i = 0; i < manyGuests; i++) {
+      total += priceGuest[`guest${i + 1}`] || 0;
+    }
+    return total;
+  }
+
   return (
-    <section>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md"
-      >
+    <section id="Form" className="p-10">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {/* Informações Pessoais */}
         <div className="card">
+          <div className="text-center gap-10">
+            <h1> Volta ao Berço do Especialista</h1>
+            <h2>19° Encontro </h2>
+          </div>
           <div className="flex flex-col justify-between">
             <h3 className="my-5 text-center w-full">Informações Pessoais</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -497,80 +477,113 @@ const RegisterForm = () => {
             </h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
-                <label
-                  className="block text-gray-700 font-medium mb-2"
-                  htmlFor="lunchFryday"
-                >
-                  Incluir almoço sexta-feira:
-                </label>
                 <div className="flex text-center gap-x-2">
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
                     id="lunchFryday"
                     value={lunchFryday}
-                    onChange={(e) => setLunchFryday(e.target.value)}
+                    onChange={(e) => {
+                      setLunchFryday(e.target.value);
+                      if (e.target.value === 'true') {
+                        setPriceVeteran(priceVeteran + 50);
+                      } else if (
+                        e.target.value === 'false' &&
+                        priceVeteran >= 50
+                      ) {
+                        setPriceVeteran(priceVeteran - 50);
+                      }
+                    }}
                   >
+                    <optgroup
+                      label={`Valor: 50 R$`}
+                      className="text-center text-md text-[#002776]"
+                    ></optgroup>
+                    <option value="" disabled>
+                      Almoço na Sexta-feira?
+                    </option>
                     <option value={false}>Não</option>
                     <option value={true}>Sim</option>
                   </select>
                 </div>
               </div>
               <div className="mb-4 w-full">
-                <label
-                  className="block text-gray-700 font-medium mb-2"
-                  htmlFor="lunchSaturday"
-                >
-                  Incluir almoço sexta-feira:
-                </label>
                 <div className="flex text-center gap-x-2">
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
                     id="lunchSaturday"
                     value={lunchSaturday}
-                    onChange={(e) => setLunchSaturday(e.target.value)}
+                    onChange={(e) => {
+                      setLunchSaturday(e.target.value);
+                      if (e.target.value === 'true') {
+                        setPriceVeteran(priceVeteran + 70);
+                      } else if (
+                        e.target.value === 'false' &&
+                        priceVeteran >= 70
+                      ) {
+                        setPriceVeteran(priceVeteran - 70);
+                      }
+                    }}
                   >
+                    <optgroup
+                      label={`Valor: 70 R$`}
+                      className="text-center text-md text-[#002776]"
+                    ></optgroup>
+                    <option value="" disabled>
+                      Almoço no Sábado?
+                    </option>
                     <option value={false}>Não</option>
                     <option value={true}>Sim</option>
                   </select>
                 </div>
               </div>
               <div className="mb-4 w-full">
-                <label
-                  className="block text-gray-700 font-medium mb-2"
-                  htmlFor="buyShirt"
-                >
-                  Incluir camisa:
-                </label>
                 <select
                   className="border border-gray-400 p-2 rounded-lg w-full"
                   id="buyShirt"
                   value={buyShirt}
-                  onChange={(e) => setBuyShirt(e.target.value)}
+                  onChange={(e) => {
+                    setBuyShirt(e.target.value);
+                    if (e.target.value === 'true') {
+                      setPriceVeteran(priceVeteran + 40);
+                    } else if (
+                      e.target.value === 'false' &&
+                      priceVeteran >= 40
+                    ) {
+                      setPriceVeteran(priceVeteran - 40);
+                    }
+                  }}
                 >
+                  <optgroup
+                    label={`Valor: 40 R$`}
+                    className="text-center text-md text-[#002776]"
+                  ></optgroup>
+                  <option value="" disabled>
+                    Camisa Oficial Do 19° Encontro?
+                  </option>
                   <option value={false}>Não</option>
                   <option value={true}>Sim</option>
                 </select>
               </div>
               {buyShirt === 'true' && (
                 <div className="mb-4">
-                  <input
-                    type="text"
+                  <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
                     value={shirt.size}
                     placeholder="Tamanho da camisa"
                     onChange={(e) =>
                       setShirt({ ...shirt, size: e.target.value })
                     }
-                  />
+                  >
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XG">XG</option>
+                    <option value="XXG">XXG</option>
+                  </select>
                 </div>
               )}
               <div className="mb-4 w-full">
-                <label
-                  className="block text-gray-700 font-medium mb-2"
-                  htmlFor="lunchFryday"
-                >
-                  Incluir convidados:
-                </label>
                 <select
                   className="border border-gray-400 p-2 rounded-lg w-full"
                   id="manyGuests"
@@ -593,6 +606,13 @@ const RegisterForm = () => {
                   <option value={10}>10</option>
                 </select>
               </div>
+              <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                Total:{' '}
+                <span className="text-[#002776] font-extrabold">
+                  {priceVeteran}
+                </span>{' '}
+                R$
+              </p>
             </div>
           </div>
         </div>
@@ -605,6 +625,13 @@ const RegisterForm = () => {
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: manyGuests }, (_, i) => (
                 <div key={i}>
+                  <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                    Convidado {i + 1}:{' '}
+                    <span className="text-[#002776] font-extrabold">
+                      {priceGuest[`guest${i + 1}`]}
+                    </span>{' '}
+                    R$
+                  </p>
                   <div className="mb-4 w-full">
                     <input
                       type="text"
@@ -658,80 +685,153 @@ const RegisterForm = () => {
                     />
                   </div>
                   <div className="mb-4 w-full">
-                    <label
-                      className="block text-gray-700 font-medium mb-2"
-                      htmlFor={`guestLunchFryday${i + 1}`}
-                    >
-                      Almoço sexta-feira:
-                    </label>
                     <select
                       className="border border-gray-400 p-2 rounded-lg w-full"
                       id={`guestLunchFryday${i + 1}`}
                       value={guest[`guest${i + 1}`].lunchFryday}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         setGuest({
                           ...guest,
                           [`guest${i + 1}`]: {
                             ...guest[`guest${i + 1}`],
                             lunchFryday: e.target.value,
                           },
-                        })
-                      }
+                        });
+                        if (e.target.value === 'true') {
+                          setPriceGuest((prevPrice) => {
+                            return {
+                              ...prevPrice,
+                              [`guest${i + 1}`]:
+                                (prevPrice[`guest${i + 1}`] || 0) + 50,
+                            };
+                          });
+                        } else if (
+                          e.target.value === 'false' &&
+                          (priceGuest[`guest${i + 1}`] || 0) >= 50
+                        ) {
+                          setPriceGuest((prevPrice) => {
+                            return {
+                              ...prevPrice,
+                              [`guest${i + 1}`]:
+                                (prevPrice[`guest${i + 1}`] || 0) - 50,
+                            };
+                          });
+                        }
+                      }}
                     >
+                      <optgroup
+                        label={`Valor: 50 R$`}
+                        className="text-center text-md text-[#002776]"
+                      ></optgroup>
+                      <option value="" disabled>
+                        Almoço na Sexta-feira?
+                      </option>
                       <option value={false}>Não</option>
                       <option value={true}>Sim</option>
                     </select>
                   </div>
-                  <div className="mb-4 w-full">
-                    <label
-                      className="block text-gray-700 font-medium mb-2"
-                      htmlFor={`guestLunchSaturday${i + 1}`}
-                    >
-                      Almoço sábado:
-                    </label>
-                    <select
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      id={`guestLunchSaturday${i + 1}`}
-                      value={guest[`guest${i + 1}`].lunchSaturday}
-                      onChange={(e) =>
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            lunchSaturday: e.target.value,
-                          },
-                        })
-                      }
-                    >
-                      <option value={false}>Não</option>
-                      <option value={true}>Sim</option>
-                    </select>
-                  </div>
-                  <div className="mb-4 w-full">
-                    <label
-                      className="block text-gray-700 font-medium mb-2"
-                      htmlFor={`guestBuyShirt${i + 1}`}
-                    >
-                      Incluir camisa:
-                    </label>
-                    <select
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      id={`guestBuyShirt${i + 1}`}
-                      value={guest[`guest${i + 1}`].guestBuyShirt}
-                      onChange={(e) =>
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            guestBuyShirt: e.target.value,
-                          },
-                        })
-                      }
-                    >
-                      <option value={false}>Não</option>
-                      <option value={true}>Sim</option>
-                    </select>
-                  </div>
+                  {guest[`guest${i + 1}`].lunchFryday != '' && (
+                    <div className="mb-4 w-full">
+                      <select
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        id={`guestLunchSaturday${i + 1}`}
+                        value={guest[`guest${i + 1}`].lunchSaturday}
+                        onChange={(e) => {
+                          setGuest({
+                            ...guest,
+                            [`guest${i + 1}`]: {
+                              ...guest[`guest${i + 1}`],
+                              lunchSaturday: e.target.value,
+                            },
+                          });
+                          if (e.target.value === 'true') {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) + 70,
+                              };
+                            });
+                          } else if (
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) >= 70
+                          ) {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) - 70,
+                              };
+                            });
+                          }
+                        }}
+                      >
+                        <optgroup
+                          label={`Valor: 70 R$`}
+                          className="text-center text-md text-[#002776]"
+                        ></optgroup>
+                        <option value="" disabled>
+                          Almoço no Sábado?
+                        </option>
+                        <option value={false}>Não</option>
+                        <option value={true}>Sim</option>
+                      </select>
+                    </div>
+                  )}
+                  {guest[`guest${i + 1}`].lunchSaturday != '' && (
+                    <div className="mb-4 w-full">
+                      <select
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        id={`guestBuyShirt${i + 1}`}
+                        value={guest[`guest${i + 1}`].guestBuyShirt}
+                        onChange={(e) => {
+                          setGuest({
+                            ...guest,
+                            [`guest${i + 1}`]: {
+                              ...guest[`guest${i + 1}`],
+                              guestBuyShirt: e.target.value,
+                            },
+                          });
+                          if (e.target.value === 'true') {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) + 40,
+                              };
+                            });
+                          } else if (
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) >= 40 &&
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) != 50 &&
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) != 70 &&
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) != 120
+                          ) {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) - 40,
+                              };
+                            });
+                          }
+                        }}
+                      >
+                        <optgroup
+                          label={`Valor: 40 R$`}
+                          className="text-center text-md text-[#002776]"
+                        ></optgroup>
+                        <option value="" disabled>
+                          Camisa Oficial do 19° Encontro?
+                        </option>
+                        <option value={false}>Não</option>
+                        <option value={true}>Sim</option>
+                      </select>
+                    </div>
+                  )}
                   {guest[`guest${i + 1}`].guestBuyShirt === 'true' && (
                     <div className="mb-4">
                       <select
@@ -750,6 +850,13 @@ const RegisterForm = () => {
                           })
                         }
                       >
+                        <optgroup
+                          label={`Valor: 70 R$`}
+                          className="text-center text-md text-[#002776]"
+                        ></optgroup>
+                        <option value="" disabled>
+                          Tamanho
+                        </option>
                         <option value="P">P</option>
                         <option value="M">M</option>
                         <option value="G">G</option>
@@ -763,6 +870,13 @@ const RegisterForm = () => {
               ))}
             </div>
           </div>
+          <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+            Preço total para todos os convidados:{' '}
+            <span className="text-[#002776] font-extrabold">
+              {calculateTotalPrice()}
+            </span>{' '}
+            R$
+          </p>
         </div>
         <button
           type="submit"
