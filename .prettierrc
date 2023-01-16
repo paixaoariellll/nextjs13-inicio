@@ -7,5 +7,6 @@
   "prettier.tabWidth": 2,
   "prettier.useTabs": true,
   "jsxBracketSameLine": false,
-  "tabWidth": 2
+  "tabWidth": 2,
+  "proseWrap": "never"
 }

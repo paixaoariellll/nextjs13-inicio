@@ -1,10 +1,11 @@
-import Hero from '../sections';
+import { Hero /* , Form */ } from '../sections';
 import '../styles/globals.css';
 
-export default function Home() {
-  return (
-    <main>
-      <Hero />
-    </main>
-  );
-}
+const Home = () => (
+  <main>
+    <Hero />
+    {/* <Form /> */}
+  </main>
+);
+
+export default Home;

@@ -1,3 +1,4 @@
 import Hero from './Hero';
+import Form from './Form';
 
-export default Hero;
+export { Hero, Form };

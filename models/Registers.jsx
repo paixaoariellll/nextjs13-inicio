@@ -20,26 +20,128 @@ const registers = new mongoose.Schema(
     cellphone: { type: String, required: false },
     lunchFryday: { type: String, required: false },
     lunchSaturday: { type: String, required: false },
-    buyShirt: { type: Boolean, required: false, default: false },
+    buyShirt: { type: String, required: false },
     shirt: {
-      size: { type: String, required: false, default: 'M' },
+      size: { type: String, required: false },
     },
-    manyGuests: { type: Number, required: false, default: 0 },
+    manyGuests: { type: Number, required: false, default: 0, max: 10 },
     guest: {
-      name: { type: String, required: false },
-      rg: { type: String, required: false },
-      kinship: { type: String, required: false },
-      lunchFryday: { type: String, required: false },
-      lunchSaturday: { type: String, required: false },
-      guestBuyShirt: { type: Boolean, required: false, default: false },
-      shirt: {
-        size: { type: String, required: false },
+      guest1: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest2: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest3: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest4: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest5: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest6: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest7: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest8: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest9: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
+      },
+      guest10: {
+        name: { type: String, required: false },
+        rg: { type: String, required: false },
+        kinship: { type: String, required: false },
+        lunchFryday: { type: String, required: false },
+        lunchSaturday: { type: String, required: false },
+        guestBuyShirt: { type: String, required: false },
+        shirt: {
+          size: { type: String, required: false },
+        },
       },
     },
   },
   { timestamps: true },
 );
 
-const Register = mongoose.models.Register || mongoose.model('Register', registers);
+const Register =
+  mongoose.models.Register || mongoose.model('Register', registers);
 
 export default Register;

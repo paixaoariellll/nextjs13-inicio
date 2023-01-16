@@ -28,20 +28,121 @@ const postHandler = async (req, res) => {
     },
     manyGuests: 0,
     guest: {
-      name: 'a',
-      rg: 'a',
-      kinship: 'a',
-      lunchFryday: 'a',
-      lunchSaturday: 'a',
-      guestBuyShirt: false,
-      shirt: {
-        size: 'a',
+      guest1: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest2: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest3: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest4: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest5: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest6: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest7: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest8: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest9: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
+      },
+      guest10: {
+        name: 'a',
+        rg: 'a',
+        kinship: 'a',
+        lunchFryday: 'a',
+        lunchSaturday: 'a',
+        guestBuyShirt: 'a',
+        shirt: {
+          size: 'a',
+        },
       },
     },
   });
   const registers = await newRegister.save();
   await db.disconnect();
-  res.send({ message: 'Car added successfully!', registers });
+  res.send({ message: 'Registro addicionado com sucesso!', registers });
 };
 
 const getHandler = async (req, res) => {
