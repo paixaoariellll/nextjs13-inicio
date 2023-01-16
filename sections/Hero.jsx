@@ -45,16 +45,16 @@ const RegisterForm = () => {
           />
         </a>
       </nav>
-      <section id="Hero" className="p-10">
+      <section id="Hero" className="sm:p-10">
         <div class="px-4 py-20 lg:flex">
-          <div class="mx-auto text-center">
+          <div class="text-center">
             <Image
               src={logo}
               alt="Logo da amiga"
               width={800}
               height={400}
               unoptmized
-              className="flex w-auto 2xl:pl-10 z-0"
+              className="relative sm:top-0 sm:lev sm:w-full sm:flex z-0"
             />
             <h1 class="bg-gradient-to-r from-[#009C3B] via-[#002776] to-[#FFDF00] bg-clip-text font-extrabold text-transparent">
               A.M.I.G.A.

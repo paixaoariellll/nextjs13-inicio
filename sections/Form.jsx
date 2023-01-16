@@ -226,7 +226,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <section id="Form" className="p-10">
+    <section id="Form" className="md:p-10">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {/* Informações Pessoais */}
         <div className="card">
