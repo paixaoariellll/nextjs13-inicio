@@ -6,7 +6,7 @@ import Logo from '../public/amiga.jpg';
 import { AiOutlineLogin } from 'react-icons/ai';
 
 const Navbar = () => (
-  <nav className="bg-white">
+  <nav className="bg-white rounded-t-xl">
     <div className="container mx-auto px-6 py-4 flex items-center justify-between gap-x-5">
       <Link href="/" className="text-white font-medium text-xl">
         <Image
