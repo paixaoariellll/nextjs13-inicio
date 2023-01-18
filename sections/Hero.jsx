@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React from 'react';
-import logo from '../public/Logo.svg';
+import logo from '../public/amiga.jpg';
 
 const RegisterForm = () => {
   return (
@@ -46,27 +46,25 @@ const RegisterForm = () => {
         </a>
       </nav>
       <section id="Hero" className="sm:p-10">
-        <div class="px-4 py-20 lg:flex">
-          <div class="text-center">
+        <div className="px-4 py-20 ">
+          <div className="flex flex-col items-center text-center justify-center">
             <Image
               src={logo}
               alt="Logo da amiga"
-              width={800}
-              height={400}
+              width={600}
+              height={500}
               unoptmized
-              className="relative sm:top-0 sm:lev sm:w-full sm:flex z-0"
+              className="relative object-contain sm:top-0 sm:w-full sm:flex z-0"
             />
-            <h1 class="bg-gradient-to-r from-[#009C3B] via-[#002776] to-[#FFDF00] bg-clip-text font-extrabold text-transparent">
-              A.M.I.G.A.
-              <h2 class="sm:block">Unidos Somos Fortes</h2>
-            </h1>
-            <h3 class="mx-auto mt-4">
+            <h1 className="text-[#002776] font-extrabold">A.M.I.G.A.</h1>
+            <h2 className="sm:block text-[#FFDF00]">Unidos Somos Fortes</h2>
+            <h3 className="mx-auto mt-4">
               Associação dos Militares Inativos de Guaratinguetá e Adjacências
             </h3>
 
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
-                class="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+                className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
                 href="#Form"
               >
                 Fazer inscrição

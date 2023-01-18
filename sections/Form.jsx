@@ -6,8 +6,8 @@ import InputMask from 'react-input-mask';
 const RegisterForm = () => {
   const [register, setRegister] = useState('');
   const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
   const [priceVeteran, setPriceVeteran] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [stageName, setStageName] = useState('');
   const [postGraduation, setPostGraduation] = useState('');
   const [CPF, setCPF] = useState('');
@@ -26,7 +26,7 @@ const RegisterForm = () => {
   const [lunchFryday, setLunchFryday] = useState('');
   const [lunchSaturday, setLunchSaturday] = useState('');
   const [buyShirt, setBuyShirt] = useState('');
-  const [shirt, setShirt] = useState({ size: '' });
+  const [shirt, setShirt] = useState({ size: 'M' });
   const [manyGuests, setManyGuests] = useState('');
   const [priceGuest, setPriceGuest] = useState(
     Array.from({ length: manyGuests }, () => 0),
@@ -87,61 +87,6 @@ const RegisterForm = () => {
         size: '',
       },
     },
-    guest6: {
-      name: '',
-      rg: '',
-      kinship: '',
-      lunchFryday: '',
-      lunchSaturday: '',
-      guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
-    },
-    guest7: {
-      name: '',
-      rg: '',
-      kinship: '',
-      lunchFryday: '',
-      lunchSaturday: '',
-      guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
-    },
-    guest8: {
-      name: '',
-      rg: '',
-      kinship: '',
-      lunchFryday: '',
-      lunchSaturday: '',
-      guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
-    },
-    guest9: {
-      name: '',
-      rg: '',
-      kinship: '',
-      lunchFryday: '',
-      lunchSaturday: '',
-      guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
-    },
-    guest10: {
-      name: '',
-      rg: '',
-      kinship: '',
-      lunchFryday: '',
-      lunchSaturday: '',
-      guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
-    },
   });
 
   useEffect(() => {
@@ -186,6 +131,7 @@ const RegisterForm = () => {
         guest,
         priceVeteran,
         priceGuest,
+        totalPrice,
       }),
     });
     const result = await response.json();
@@ -195,7 +141,7 @@ const RegisterForm = () => {
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const optgroup = [];
-    for (let i = currentYear - 60; i <= currentYear - 35; i += 1) {
+    for (let i = currentYear - 60; i <= currentYear - 20; i += 1) {
       optgroup.push(
         <option key={i} value={i}>
           {i}
@@ -223,6 +169,10 @@ const RegisterForm = () => {
       total += priceGuest[`guest${i + 1}`] || 0;
     }
     return total;
+  }
+
+  function handlePriceUpdate() {
+    setTotalPrice(calculateTotalPrice() + priceVeteran);
   }
 
   return (
@@ -270,35 +220,38 @@ const RegisterForm = () => {
                   <option value="" disabled>
                     Posto ou Graduação
                   </option>
-                  <optgroup label="Graduado">
-                    <option value="Cabo">Cabo</option>
-                    <option value="Terceiro-Sargento">Terceiro-Sargento</option>
-                    <option value="Segundo-Sargento">Segundo-Sargento</option>
-                    <option value="Primeiro-Sargento">Primeiro-Sargento</option>
-                    <option value="Suboficial">Suboficial</option>
+                  <optgroup label="Oficial General">
+                    <option value="Marechal-do-Ar">Marechal-do-Ar</option>
+                    <option value="Tenente-Brigadeiro-do-Ar">
+                      Tenente-Brigadeiro-do-Ar
+                    </option>
+                    <option value="Major-Brigadeiro-do-Ar">
+                      Major-Brigadeiro-do-Ar
+                    </option>
+                    <option value="Brigadeiro">Brigadeiro</option>
                   </optgroup>
-                  <optgroup label="Oficial Subalterno">
-                    <option value="Aspirante">Aspirante</option>
-                    <option value="Segundo-Tenente">Segundo-Tenente</option>
-                    <option value="Primeiro-Tenente">Primeiro-Tenente</option>
+                  <optgroup label="Oficial Superior">
+                    <option value="Coronel">Coronel</option>
+                    <option value="Tenente-Coronel">Tenente-Coronel</option>
+                    <option value="Major">Major</option>
                   </optgroup>
                   <optgroup label="Oficial Intermediário">
                     <option value="Capitão">Capitão</option>
                   </optgroup>
-                  <optgroup label="Oficial Superior">
-                    <option value="Major">Major</option>
-                    <option value="Tenente-Coronel">Tenente-Coronel</option>
-                    <option value="Coronel">Coronel</option>
+                  <optgroup label="Oficial Subalterno">
+                    <option value="Primeiro-Tenente">Primeiro-Tenente</option>
+                    <option value="Segundo-Tenente">Segundo-Tenente</option>
+                    <option value="Aspirante">Aspirante</option>
                   </optgroup>
-                  <optgroup label="Oficial General">
-                    <option value="Brigadeiro">Brigadeiro</option>
-                    <option value="Major-Brigadeiro-do-Ar">
-                      Major-Brigadeiro-do-Ar
-                    </option>
-                    <option value="Tenente-Brigadeiro-do-Ar">
-                      Tenente-Brigadeiro-do-Ar
-                    </option>
-                    <option value="Marechal-do-Ar">Marechal-do-Ar</option>
+                  <optgroup label="Graduado">
+                    <option value="Suboficial">Suboficial</option>
+                    <option value="Primeiro-Sargento">Primeiro-Sargento</option>
+                    <option value="Segundo-Sargento">Segundo-Sargento</option>
+                    <option value="Terceiro-Sargento">Terceiro-Sargento</option>
+                    <option value="Cabo">Cabo</option>
+                  </optgroup>
+                  <optgroup label="Outros">
+                    <option value="Outros">Outros</option>
                   </optgroup>
                 </select>
               </div>
@@ -586,6 +539,8 @@ const RegisterForm = () => {
                     <option value="GG">GG</option>
                     <option value="XG">XG</option>
                     <option value="XXG">XXG</option>
+                    <option value="XXG">XXXG</option>
+                    <option value="XXG">XXXXG</option>
                   </select>
                 </div>
               )}
@@ -605,11 +560,6 @@ const RegisterForm = () => {
                   <option value={3}>3</option>
                   <option value={4}>4</option>
                   <option value={5}>5</option>
-                  <option value={6}>6</option>
-                  <option value={7}>7</option>
-                  <option value={8}>8</option>
-                  <option value={9}>9</option>
-                  <option value={10}>10</option>
                 </select>
               </div>
               <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
@@ -624,272 +574,298 @@ const RegisterForm = () => {
         </div>
         {/* Acompanhantes */}
         <div className="card">
-          <div className="flex flex-col justify-between">
-            <h3 className="my-5 text-center w-full">
-              Informações Dos Acompanhantes
-            </h3>
-            <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {Array.from({ length: manyGuests }, (_, i) => (
-                <div key={i}>
-                  <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-                    Convidado {i + 1}:{' '}
-                    <span className="text-[#002776] font-extrabold">
-                      {priceGuest[`guest${i + 1}`]}
-                    </span>{' '}
-                    R$
-                  </p>
-                  <div className="mb-4 w-full">
-                    <input
-                      type="text"
-                      className="w-full border border-gray-400 p-2 rounded-lg"
-                      id={`guestName${i}`}
-                      placeholder={`Nome Acompanhante ${i + 1}`}
-                      value={guest[`guest${i + 1}`].name}
-                      onChange={(e) => {
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            name: e.target.value,
-                          },
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="mb-4 w-full">
-                    <input
-                      type="text"
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      value={guest[`guest${i + 1}`].rg}
-                      placeholder={`RG do convidado ${i + 1}`}
-                      onChange={(e) =>
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            rg: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="mb-4 w-full">
-                    <input
-                      type="text"
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      value={guest[`guest${i + 1}`].kinship}
-                      placeholder={`Grau de parentesco do convidado ${i + 1}`}
-                      onChange={(e) =>
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            kinship: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="mb-4 w-full">
-                    <select
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      id={`guestLunchFryday${i + 1}`}
-                      value={guest[`guest${i + 1}`].lunchFryday}
-                      onChange={(e) => {
-                        setGuest({
-                          ...guest,
-                          [`guest${i + 1}`]: {
-                            ...guest[`guest${i + 1}`],
-                            lunchFryday: e.target.value,
-                          },
-                        });
-                        if (e.target.value === 'true') {
-                          setPriceGuest((prevPrice) => {
-                            return {
-                              ...prevPrice,
-                              [`guest${i + 1}`]:
-                                (prevPrice[`guest${i + 1}`] || 0) + 50,
-                            };
-                          });
-                        } else if (
-                          e.target.value === 'false' &&
-                          (priceGuest[`guest${i + 1}`] || 0) >= 50
-                        ) {
-                          setPriceGuest((prevPrice) => {
-                            return {
-                              ...prevPrice,
-                              [`guest${i + 1}`]:
-                                (prevPrice[`guest${i + 1}`] || 0) - 50,
-                            };
-                          });
-                        }
-                      }}
-                    >
-                      <optgroup
-                        label={`Valor: 50 R$`}
-                        className="text-center text-md text-[#002776]"
-                      ></optgroup>
-                      <option value="" disabled>
-                        Almoço na Sexta-feira?
-                      </option>
-                      <option value={false}>Não</option>
-                      <option value={true}>Sim</option>
-                    </select>
-                  </div>
-                  {guest[`guest${i + 1}`].lunchFryday != '' && (
+          {manyGuests > 0 && (
+            <div className="flex flex-col justify-between">
+              <h3 className="my-5 text-center w-full">
+                Informações Dos Acompanhantes
+              </h3>
+              <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {Array.from({ length: manyGuests }, (_, i) => (
+                  <div key={i}>
+                    <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                      Convidado {i + 1}:{' '}
+                      <span className="text-[#002776] font-extrabold">
+                        {priceGuest[`guest${i + 1}`]}
+                      </span>{' '}
+                      R$
+                    </p>
                     <div className="mb-4 w-full">
-                      <select
-                        className="border border-gray-400 p-2 rounded-lg w-full"
-                        id={`guestLunchSaturday${i + 1}`}
-                        value={guest[`guest${i + 1}`].lunchSaturday}
+                      <input
+                        type="text"
+                        className="w-full border border-gray-400 p-2 rounded-lg"
+                        id={`guestName${i}`}
+                        placeholder={`Nome Acompanhante ${i + 1}`}
+                        value={guest[`guest${i + 1}`].name}
                         onChange={(e) => {
                           setGuest({
                             ...guest,
                             [`guest${i + 1}`]: {
                               ...guest[`guest${i + 1}`],
-                              lunchSaturday: e.target.value,
+                              name: e.target.value,
                             },
                           });
-                          if (e.target.value === 'true') {
-                            setPriceGuest((prevPrice) => {
-                              return {
-                                ...prevPrice,
-                                [`guest${i + 1}`]:
-                                  (prevPrice[`guest${i + 1}`] || 0) + 70,
-                              };
-                            });
-                          } else if (
-                            e.target.value === 'false' &&
-                            (priceGuest[`guest${i + 1}`] || 0) >= 70
-                          ) {
-                            setPriceGuest((prevPrice) => {
-                              return {
-                                ...prevPrice,
-                                [`guest${i + 1}`]:
-                                  (prevPrice[`guest${i + 1}`] || 0) - 70,
-                              };
-                            });
-                          }
                         }}
-                      >
-                        <optgroup
-                          label={`Valor: 70 R$`}
-                          className="text-center text-md text-[#002776]"
-                        ></optgroup>
-                        <option value="" disabled>
-                          Almoço no Sábado?
-                        </option>
-                        <option value={false}>Não</option>
-                        <option value={true}>Sim</option>
-                      </select>
+                      />
                     </div>
-                  )}
-                  {guest[`guest${i + 1}`].lunchSaturday != '' && (
                     <div className="mb-4 w-full">
-                      <select
+                      <input
+                        type="text"
                         className="border border-gray-400 p-2 rounded-lg w-full"
-                        id={`guestBuyShirt${i + 1}`}
-                        value={guest[`guest${i + 1}`].guestBuyShirt}
-                        onChange={(e) => {
-                          setGuest({
-                            ...guest,
-                            [`guest${i + 1}`]: {
-                              ...guest[`guest${i + 1}`],
-                              guestBuyShirt: e.target.value,
-                            },
-                          });
-                          if (e.target.value === 'true') {
-                            setPriceGuest((prevPrice) => {
-                              return {
-                                ...prevPrice,
-                                [`guest${i + 1}`]:
-                                  (prevPrice[`guest${i + 1}`] || 0) + 40,
-                              };
-                            });
-                          } else if (
-                            e.target.value === 'false' &&
-                            (priceGuest[`guest${i + 1}`] || 0) >= 40 &&
-                            e.target.value === 'false' &&
-                            (priceGuest[`guest${i + 1}`] || 0) != 50 &&
-                            e.target.value === 'false' &&
-                            (priceGuest[`guest${i + 1}`] || 0) != 70 &&
-                            e.target.value === 'false' &&
-                            (priceGuest[`guest${i + 1}`] || 0) != 120
-                          ) {
-                            setPriceGuest((prevPrice) => {
-                              return {
-                                ...prevPrice,
-                                [`guest${i + 1}`]:
-                                  (prevPrice[`guest${i + 1}`] || 0) - 40,
-                              };
-                            });
-                          }
-                        }}
-                      >
-                        <optgroup
-                          label={`Valor: 40 R$`}
-                          className="text-center text-md text-[#002776]"
-                        ></optgroup>
-                        <option value="" disabled>
-                          Camisa Oficial do 19° Encontro?
-                        </option>
-                        <option value={false}>Não</option>
-                        <option value={true}>Sim</option>
-                      </select>
-                    </div>
-                  )}
-                  {guest[`guest${i + 1}`].guestBuyShirt === 'true' && (
-                    <div className="mb-4">
-                      <select
-                        className="border border-gray-400 p-2 rounded-lg w-full"
-                        value={guest[`guest${i + 1}`].shirt.size}
+                        value={guest[`guest${i + 1}`].rg}
+                        placeholder={`RG do convidado ${i + 1}`}
                         onChange={(e) =>
                           setGuest({
                             ...guest,
                             [`guest${i + 1}`]: {
                               ...guest[`guest${i + 1}`],
-                              shirt: {
-                                ...guest[`guest${i + 1}`].shirt,
-                                size: e.target.value,
-                              },
+                              rg: e.target.value,
                             },
                           })
                         }
+                      />
+                    </div>
+                    <div className="mb-4 w-full">
+                      <input
+                        type="text"
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        value={guest[`guest${i + 1}`].kinship}
+                        placeholder={`Grau de parentesco do convidado ${i + 1}`}
+                        onChange={(e) =>
+                          setGuest({
+                            ...guest,
+                            [`guest${i + 1}`]: {
+                              ...guest[`guest${i + 1}`],
+                              kinship: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="mb-4 w-full">
+                      <select
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        id={`guestLunchFryday${i + 1}`}
+                        value={guest[`guest${i + 1}`].lunchFryday}
+                        onChange={(e) => {
+                          setGuest({
+                            ...guest,
+                            [`guest${i + 1}`]: {
+                              ...guest[`guest${i + 1}`],
+                              lunchFryday: e.target.value,
+                            },
+                          });
+                          if (e.target.value === 'true') {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) + 50,
+                              };
+                            });
+                          } else if (
+                            e.target.value === 'false' &&
+                            (priceGuest[`guest${i + 1}`] || 0) >= 50
+                          ) {
+                            setPriceGuest((prevPrice) => {
+                              return {
+                                ...prevPrice,
+                                [`guest${i + 1}`]:
+                                  (prevPrice[`guest${i + 1}`] || 0) - 50,
+                              };
+                            });
+                          }
+                        }}
                       >
                         <optgroup
-                          label={`Valor: 70 R$`}
+                          label={`Valor: 50 R$`}
                           className="text-center text-md text-[#002776]"
                         ></optgroup>
                         <option value="" disabled>
-                          Tamanho
+                          Almoço na Sexta-feira?
                         </option>
-                        <option value="P">P</option>
-                        <option value="M">M</option>
-                        <option value="G">G</option>
-                        <option value="GG">GG</option>
-                        <option value="XG">XG</option>
-                        <option value="XXG">XXG</option>
+                        <option value={false}>Não</option>
+                        <option value={true}>Sim</option>
                       </select>
                     </div>
-                  )}
-                </div>
-              ))}
+                    {guest[`guest${i + 1}`].lunchFryday != '' && (
+                      <div className="mb-4 w-full">
+                        <select
+                          className="border border-gray-400 p-2 rounded-lg w-full"
+                          id={`guestLunchSaturday${i + 1}`}
+                          value={guest[`guest${i + 1}`].lunchSaturday}
+                          onChange={(e) => {
+                            setGuest({
+                              ...guest,
+                              [`guest${i + 1}`]: {
+                                ...guest[`guest${i + 1}`],
+                                lunchSaturday: e.target.value,
+                              },
+                            });
+                            if (e.target.value === 'true') {
+                              setPriceGuest((prevPrice) => {
+                                return {
+                                  ...prevPrice,
+                                  [`guest${i + 1}`]:
+                                    (prevPrice[`guest${i + 1}`] || 0) + 70,
+                                };
+                              });
+                            } else if (
+                              e.target.value === 'false' &&
+                              (priceGuest[`guest${i + 1}`] || 0) >= 70
+                            ) {
+                              setPriceGuest((prevPrice) => {
+                                return {
+                                  ...prevPrice,
+                                  [`guest${i + 1}`]:
+                                    (prevPrice[`guest${i + 1}`] || 0) - 70,
+                                };
+                              });
+                            }
+                          }}
+                        >
+                          <optgroup
+                            label={`Valor: 70 R$`}
+                            className="text-center text-md text-[#002776]"
+                          ></optgroup>
+                          <option value="" disabled>
+                            Almoço no Sábado?
+                          </option>
+                          <option value={false}>Não</option>
+                          <option value={true}>Sim</option>
+                        </select>
+                      </div>
+                    )}
+                    {guest[`guest${i + 1}`].lunchSaturday != '' && (
+                      <div className="mb-4 w-full">
+                        <select
+                          className="border border-gray-400 p-2 rounded-lg w-full"
+                          id={`guestBuyShirt${i + 1}`}
+                          value={guest[`guest${i + 1}`].guestBuyShirt}
+                          onChange={(e) => {
+                            setGuest({
+                              ...guest,
+                              [`guest${i + 1}`]: {
+                                ...guest[`guest${i + 1}`],
+                                guestBuyShirt: e.target.value,
+                              },
+                            });
+                            if (e.target.value === 'true') {
+                              setPriceGuest((prevPrice) => {
+                                return {
+                                  ...prevPrice,
+                                  [`guest${i + 1}`]:
+                                    (prevPrice[`guest${i + 1}`] || 0) + 40,
+                                };
+                              });
+                            } else if (
+                              e.target.value === 'false' &&
+                              (priceGuest[`guest${i + 1}`] || 0) >= 40 &&
+                              e.target.value === 'false' &&
+                              (priceGuest[`guest${i + 1}`] || 0) != 50 &&
+                              e.target.value === 'false' &&
+                              (priceGuest[`guest${i + 1}`] || 0) != 70 &&
+                              e.target.value === 'false' &&
+                              (priceGuest[`guest${i + 1}`] || 0) != 120
+                            ) {
+                              setPriceGuest((prevPrice) => {
+                                return {
+                                  ...prevPrice,
+                                  [`guest${i + 1}`]:
+                                    (prevPrice[`guest${i + 1}`] || 0) - 40,
+                                };
+                              });
+                            }
+                          }}
+                        >
+                          <optgroup
+                            label={`Valor: 40 R$`}
+                            className="text-center text-md text-[#002776]"
+                          ></optgroup>
+                          <option value="" disabled>
+                            Camisa Oficial do 19° Encontro?
+                          </option>
+                          <option value={false}>Não</option>
+                          <option value={true}>Sim</option>
+                        </select>
+                      </div>
+                    )}
+                    {guest[`guest${i + 1}`].guestBuyShirt === 'true' && (
+                      <div className="mb-4">
+                        <select
+                          className="border border-gray-400 p-2 rounded-lg w-full"
+                          value={guest[`guest${i + 1}`].shirt.size}
+                          onChange={(e) =>
+                            setGuest({
+                              ...guest,
+                              [`guest${i + 1}`]: {
+                                ...guest[`guest${i + 1}`],
+                                shirt: {
+                                  ...guest[`guest${i + 1}`].shirt,
+                                  size: e.target.value,
+                                },
+                              },
+                            })
+                          }
+                        >
+                          <optgroup
+                            label={`Valor: 70 R$`}
+                            className="text-center text-md text-[#002776]"
+                          ></optgroup>
+                          <option value="" disabled>
+                            Tamanho
+                          </option>
+                          <option value="P">P</option>
+                          <option value="M">M</option>
+                          <option value="G">G</option>
+                          <option value="GG">GG</option>
+                          <option value="XG">XG</option>
+                          <option value="XXG">XXG</option>
+                        </select>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {calculateTotalPrice > 0 && (
+            <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+              Valor para todos os convidados:{' '}
+              <span className="text-[#002776] font-extrabold">
+                {calculateTotalPrice()}
+              </span>{' '}
+              R$
+            </p>
+          )}
+          <div>
+            {totalPrice > 0 && (
+              <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                Valor Total:{' '}
+                <span className="text-[#002776] font-extrabold">
+                  {totalPrice}
+                </span>{' '}
+                R$
+              </p>
+            )}
+            <div>
+              <button
+                type="button"
+                className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+                onClick={handlePriceUpdate}
+              >
+                Atualizar valor total
+              </button>
             </div>
           </div>
-          <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-            Preço total para todos os convidados:{' '}
-            <span className="text-[#002776] font-extrabold">
-              {calculateTotalPrice()}
-            </span>{' '}
-            R$
-          </p>
         </div>
-        <button
-          type="submit"
-          className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
-        >
-          Enviar
-        </button>
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <button
+            type="submit"
+            className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+          >
+            Enviar inscrição
+          </button>
+        </div>
       </form>
     </section>
   );
