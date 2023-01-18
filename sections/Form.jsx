@@ -141,7 +141,7 @@ const RegisterForm = () => {
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const optgroup = [];
-    for (let i = currentYear - 60; i <= currentYear - 20; i += 1) {
+    for (let i = currentYear - 60; i <= currentYear - 1; i += 1) {
       optgroup.push(
         <option key={i} value={i}>
           {i}

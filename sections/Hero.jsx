@@ -59,7 +59,8 @@ const RegisterForm = () => {
             <h1 className="text-[#002776] font-extrabold">A.M.I.G.A.</h1>
             <h2 className="sm:block text-[#FFDF00]">Unidos Somos Fortes</h2>
             <h3 className="mx-auto mt-4">
-              Associação dos Militares Inativos de Guaratinguetá e Adjacências
+              Associação dos Militares Veteranos e Pensionista de Militares de
+              Guaratinguetá
             </h3>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4">
