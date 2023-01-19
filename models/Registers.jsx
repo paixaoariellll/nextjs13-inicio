@@ -21,9 +21,12 @@ const registers = new mongoose.Schema(
     lunchFryday: { type: String, required: false },
     lunchSaturday: { type: String, required: false },
     buyShirt: { type: String, required: false },
-    priceVeteran: { type: Number, required: true },
-    priceGuest: { type: Object, required: true },
-    totalPrice: { type: Number, required: true },
+    priceVeteran: { type: Number, required: false },
+    priceGuest: { type: Object, required: false },
+    totalPrice: { type: Number, required: false },
+    shirt: {
+      size: { type: String, required: false },
+    },
     guest: {
       guest1: {
         name: { type: String, required: false },
@@ -90,7 +93,7 @@ const registers = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Register =
-  mongoose.models.Register || mongoose.model('Register', registers);
+const Registers =
+  mongoose.models.Registers || mongoose.model('Registers', registers);
 
-export default Register;
+export default Registers;

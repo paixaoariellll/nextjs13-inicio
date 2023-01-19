@@ -105,6 +105,17 @@ const getHandler = async (req, res) => {
   res.send(registers);
 };
 
+const putHandler = async (req, res) => {
+  await db.connect();
+  const { id } = req.params;
+  const updatedData = req.body;
+  const register = await Registers.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
+  await db.disconnect();
+  res.send({ message: 'Registro atualizado com sucesso!', register });
+};
+
 const handler = async (req, res) => {
   if (req.method === 'GET') {
     return getHandler(req, res);
@@ -112,9 +123,10 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     return postHandler(req, res);
   }
-  return res
-    .status(400)
-    .send({ message: 'Ops, parece que houve um problem no GET ou no POST!' });
+  if (req.method === 'PUT') {
+    return putHandler(req, res);
+  }
+  return res.status(400).send({
+    message: 'Ops, parece que houve um problema no GET, no POST ou no PUT!',
+  });
 };
-
-export default handler;

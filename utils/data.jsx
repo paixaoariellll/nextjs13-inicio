@@ -1,4 +1,25 @@
+import bcrypt from 'bcryptjs';
+
 module.exports = {
+  users: [
+    {
+      name: 'Administrador',
+      image: '',
+      lastName: 'Local',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('Amiga2023!'),
+      isAdmin: true,
+    },
+    {
+      name: 'Usuário',
+      image: '',
+      lastName: 'Local',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('Amiga2023!'),
+      isAdmin: false,
+    },
+  ],
+
   registers: [
     {
       name: 'Ariel0',

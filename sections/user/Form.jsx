@@ -26,7 +26,9 @@ const RegisterForm = () => {
   const [lunchFryday, setLunchFryday] = useState('');
   const [lunchSaturday, setLunchSaturday] = useState('');
   const [buyShirt, setBuyShirt] = useState('');
-  const [shirt, setShirt] = useState({ size: 'M' });
+  const [shirt, setShirt] = useState({
+    size: '',
+  });
   const [manyGuests, setManyGuests] = useState('');
   const [priceGuest, setPriceGuest] = useState(
     Array.from({ length: manyGuests }, () => 0),
@@ -134,10 +136,15 @@ const RegisterForm = () => {
         totalPrice,
       }),
     });
+    /*  if (response.ok) {
+      window.location.href = '/confirm';
+    } else {
+      console.error();
+    } */
     const result = await response.json();
     console.log(result);
-    console.log(register);
   };
+
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const optgroup = [];
@@ -176,7 +183,7 @@ const RegisterForm = () => {
   }
 
   return (
-    <section id="Form" className="md:p-10">
+    <section id="Form" className="md:pt-10 px-10 pb-0">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {/* Informações Pessoais */}
         <div className="card">
@@ -533,6 +540,9 @@ const RegisterForm = () => {
                       setShirt({ ...shirt, size: e.target.value })
                     }
                   >
+                    <option value="" desabled>
+                      Tamanho da camisa
+                    </option>
                     <option value="P">P</option>
                     <option value="M">M</option>
                     <option value="G">G</option>
@@ -820,6 +830,8 @@ const RegisterForm = () => {
                           <option value="GG">GG</option>
                           <option value="XG">XG</option>
                           <option value="XXG">XXG</option>
+                          <option value="XXXG">XXXG</option>
+                          <option value="XXXXG">XXXXG</option>
                         </select>
                       </div>
                     )}
