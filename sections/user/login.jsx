@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
 import { signIn, useSession } from 'next-auth/react';
 
-export const Login = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { data: session } = useSession();
@@ -98,7 +98,6 @@ export const Login = () => {
           </div>
           <button
             type="submit"
-            onClick={() => window.location()}
             className="block justify-center w-fit mx-auto text-xl rounded bg-[#002776] px-12 py-2 font-medium text-white hover:bg-[#009C3B]"
           >
             Entrar
@@ -108,3 +107,5 @@ export const Login = () => {
     </section>
   );
 };
+
+export default Login;

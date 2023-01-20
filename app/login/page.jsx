@@ -1,5 +1,5 @@
 import { Navbar, Footer } from '/components';
-import { Login } from './login';
+import { Login } from '../../sections/user';
 import '@/styles/globals.css';
 
 const Page = () => (
