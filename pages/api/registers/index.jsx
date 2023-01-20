@@ -38,7 +38,7 @@ const postHandler = async (req, res) => {
         lunchFryday: 'a',
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
-        price: '0',
+        price: 0,
         shirt: {
           size: 'a',
         },
@@ -50,7 +50,7 @@ const postHandler = async (req, res) => {
         lunchFryday: 'a',
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
-        price: '0',
+        price: 0,
         shirt: {
           size: 'a',
         },
@@ -62,7 +62,7 @@ const postHandler = async (req, res) => {
         lunchFryday: 'a',
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
-        price: '0',
+        price: 0,
         shirt: {
           size: 'a',
         },
@@ -74,7 +74,7 @@ const postHandler = async (req, res) => {
         lunchFryday: 'a',
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
-        price: '0',
+        price: 0,
         shirt: {
           size: 'a',
         },
@@ -86,7 +86,7 @@ const postHandler = async (req, res) => {
         lunchFryday: 'a',
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
-        price: '0',
+        price: 0,
         shirt: {
           size: 'a',
         },
