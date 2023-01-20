@@ -9,15 +9,17 @@ export default NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user?._id) token._id = user._id;
-      if (user?.isAdmin) token.isAdmin = user.isAdmin;
-      return token;
+    async jwtToken({ token, user }) {
+      const newToken = { ...token };
+      if (user?._id) newToken._id = user._id;
+      if (user?.isAdmin) newToken.isAdmin = user.isAdmin;
+      return newToken;
     },
-    async session({ session, token }) {
-      if (token?._id) session.user._id = token._id;
-      if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
-      return session;
+    async jwtSession({ session, token }) {
+      const newSession = { ...session };
+      if (token?._id) newSession._id = token._id;
+      if (token?.isAdmin) newSession.isAdmin = token.isAdmin;
+      return newSession;
     },
   },
   providers: [

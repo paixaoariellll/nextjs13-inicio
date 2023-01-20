@@ -1,5 +1,5 @@
-import Registers from '../../../../models/Registers';
-import db from '../../../../utils/db';
+import Registers from '@/models/Registers';
+import db from '@/utils/db';
 
 const handler = async (req, res) => {
   await db.connect();
@@ -26,9 +26,6 @@ const handler = async (req, res) => {
     priceVeteran: req.body.priceVeteran,
     priceGuest: req.body.priceGuest,
     totalPrice: req.body.totalPrice,
-    shirt: {
-      size: req.body.shirt.size,
-    },
     manyGuests: req.body.manyGuests,
     guest: {
       guest1: {
@@ -91,6 +88,9 @@ const handler = async (req, res) => {
           size: req.body.guest.guest5.shirt.size,
         },
       },
+    },
+    shirt: {
+      size: req.body.shirt.size,
     },
   });
   const registers = await newRegister.save();

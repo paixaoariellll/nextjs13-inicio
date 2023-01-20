@@ -540,7 +540,7 @@ const RegisterForm = () => {
                       setShirt({ ...shirt, size: e.target.value })
                     }
                   >
-                    <option value="" desabled>
+                    <option value="" disabled>
                       Tamanho da camisa
                     </option>
                     <option value="P">P</option>

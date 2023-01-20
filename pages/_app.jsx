@@ -15,6 +15,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
     </SessionProvider>
   );
 }
+
 function Auth({ children, adminOnly }) {
   const router = useRouter();
   const { status, data: session } = useSession({

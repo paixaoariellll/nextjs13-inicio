@@ -1,5 +1,5 @@
-import Registers from '../../../models/Registers';
-import db from '../../../utils/db';
+import Registers from '@/models/Registers';
+import db from '@/utils/db';
 
 const postHandler = async (req, res) => {
   await db.connect();
@@ -130,3 +130,5 @@ const handler = async (req, res) => {
     message: 'Ops, parece que houve um problema no GET, no POST ou no PUT!',
   });
 };
+
+export default handler;
