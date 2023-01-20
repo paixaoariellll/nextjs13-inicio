@@ -1,3 +1,5 @@
+'use strict';
+
 import bcryptjs from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import db from '@/utils/db';

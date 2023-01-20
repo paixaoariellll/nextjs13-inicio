@@ -1,5 +1,3 @@
-import nextAuthMiddleware from 'next-auth/middleware';
-
-export const middleware = nextAuthMiddleware;
+export { default } from 'next-auth/middleware';
 
 export const config = { matcher: ['/admin'] };
