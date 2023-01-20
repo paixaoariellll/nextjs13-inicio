@@ -43,7 +43,7 @@ const Login = () => {
           onSubmit={submitHandler}
           className=" p-6 rounded-lg min-w-fit w-1/3 mx-auto"
         >
-          <div className="flex flex-row items-center justify-center">
+          {/*   <div className="flex flex-row items-center justify-center">
             <p className="text-lg mb-0 mr-4">Entre com:</p>
             <button
               type="button"
@@ -51,7 +51,7 @@ const Login = () => {
             >
               <FcGoogle className="text-3xl" />
             </button>
-          </div>
+          </div> */}
           <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
             <p className="text-center font-semibold mx-4 mb-0">Ou</p>
           </div>
