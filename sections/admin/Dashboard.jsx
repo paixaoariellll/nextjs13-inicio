@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-const dashboard = () => {
+const Dashboard = () => {
   return (
     <section id="Dashboard" className="flex justify-between m-10 ">
       <div className="card">
@@ -40,4 +40,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

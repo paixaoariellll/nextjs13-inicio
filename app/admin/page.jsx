@@ -1,5 +1,5 @@
 import { Navbar, Footer } from '/components';
-import Dashboard from './dashboard';
+import { Dashboard } from '@/sections/admin';
 import '@/styles/globals.css';
 
 const PageAdmin = () => (

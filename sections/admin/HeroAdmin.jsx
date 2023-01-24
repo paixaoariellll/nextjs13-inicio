@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 import logo from '@/public/amiga.jpg';
 
-export const Hero = () => {
+const HeroAdmin = () => {
   return (
     <div className="card">
       <section id="Hero" className="sm:p-10">
@@ -21,7 +21,13 @@ export const Hero = () => {
               />
             </div>
             <div className="col-span-2 lg:col-span-1">
-              <h1 className="text-[#002776] font-extrabold">A.M.I.G.A.</h1>
+              <h1 className="text-[#002776] font-extrabold">
+                A<span className="text-green-600">.</span>M
+                <span className="text-green-600">.</span>I
+                <span className="text-green-600">.</span>G
+                <span className="text-green-600">.</span>A
+                <span className="text-green-600">.</span>
+              </h1>
               <h2 className="sm:block text-[#FFDF00]">Unidos Somos Fortes</h2>
               <h3 className="mx-auto mt-4">
                 Associação dos Militares Veteranos e Pensionistas de Militares
@@ -32,7 +38,7 @@ export const Hero = () => {
                   className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
                   href="#Form"
                 >
-                  Fazer inscrição
+                  Inscrever um AMIGO
                 </a>
               </div>
             </div>
@@ -43,4 +49,4 @@ export const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroAdmin;

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
 
-const RegisterFormUser = () => {
+const RegisterFormAdmin = () => {
   const [register, setRegister] = useState('');
   const [name, setName] = useState('');
   const [priceVeteran, setPriceVeteran] = useState(0);
@@ -861,4 +861,4 @@ const RegisterFormUser = () => {
   );
 };
 
-export default RegisterFormUser;
+export default RegisterFormAdmin;
