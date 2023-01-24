@@ -23,12 +23,20 @@ const postHandler = async (req, res) => {
     lunchFryday: 'a',
     lunchSaturday: 'a',
     buyShirt: true,
-    priceVeteran: 0,
-    priceGuest: 0,
-    totalPrice: 0,
     shirt: {
       size: 'M',
     },
+    manyBuyShirt: 0,
+    shirtSizes: {
+      size1: 'M',
+      size2: 'M',
+      size3: 'M',
+      size4: 'M',
+      size5: 'M',
+    },
+    priceVeteran: 0,
+    priceGuest: 0,
+    totalPrice: 0,
     manyGuests: 0,
     guest: {
       guest1: {
@@ -39,9 +47,6 @@ const postHandler = async (req, res) => {
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
         price: 0,
-        shirt: {
-          size: 'a',
-        },
       },
       guest2: {
         name: 'a',
@@ -51,9 +56,6 @@ const postHandler = async (req, res) => {
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
         price: 0,
-        shirt: {
-          size: 'a',
-        },
       },
       guest3: {
         name: 'a',
@@ -63,9 +65,6 @@ const postHandler = async (req, res) => {
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
         price: 0,
-        shirt: {
-          size: 'a',
-        },
       },
       guest4: {
         name: 'a',
@@ -75,9 +74,6 @@ const postHandler = async (req, res) => {
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
         price: 0,
-        shirt: {
-          size: 'a',
-        },
       },
       guest5: {
         name: 'a',
@@ -87,9 +83,6 @@ const postHandler = async (req, res) => {
         lunchSaturday: 'a',
         guestBuyShirt: 'a',
         price: 0,
-        shirt: {
-          size: 'a',
-        },
       },
     },
   });

@@ -21,6 +21,14 @@ const registers = new mongoose.Schema(
     lunchFryday: { type: String, required: false },
     lunchSaturday: { type: String, required: false },
     buyShirt: { type: String, required: false },
+    manyBuyShirt: { type: Number, required: false },
+    shirtSizes: {
+      size1: { type: String, required: false },
+      size2: { type: String, required: false },
+      size3: { type: String, required: false },
+      size4: { type: String, required: false },
+      size5: { type: String, required: false },
+    },
     priceVeteran: { type: Number, required: false },
     priceGuest: { type: Object, required: false },
     totalPrice: { type: Number, required: false },
@@ -35,10 +43,6 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
-        price: { type: Number, required: false, default: 0 },
-        shirt: {
-          size: { type: String, required: false },
-        },
       },
       guest2: {
         name: { type: String, required: false },
@@ -47,10 +51,6 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
-        price: { type: Number, required: false, default: 0 },
-        shirt: {
-          size: { type: String, required: false },
-        },
       },
       guest3: {
         name: { type: String, required: false },
@@ -59,10 +59,6 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
-        price: { type: Number, required: false, default: 0 },
-        shirt: {
-          size: { type: String, required: false },
-        },
       },
       guest4: {
         name: { type: String, required: false },
@@ -71,10 +67,6 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
-        price: { type: Number, required: false, default: 0 },
-        shirt: {
-          size: { type: String, required: false },
-        },
       },
       guest5: {
         name: { type: String, required: false },
@@ -83,10 +75,6 @@ const registers = new mongoose.Schema(
         lunchFryday: { type: String, required: false },
         lunchSaturday: { type: String, required: false },
         guestBuyShirt: { type: String, required: false },
-        price: { type: Number, required: false, default: 0 },
-        shirt: {
-          size: { type: String, required: false },
-        },
       },
     },
   },

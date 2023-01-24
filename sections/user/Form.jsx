@@ -26,6 +26,14 @@ const RegisterForm = () => {
   const [lunchFryday, setLunchFryday] = useState('');
   const [lunchSaturday, setLunchSaturday] = useState('');
   const [buyShirt, setBuyShirt] = useState('');
+  const [manyBuyShirt, setManyBuyShirt] = useState(0);
+  const [shirtSizes, setShirtSizes] = useState({
+    size1: 'M',
+    size2: 'M',
+    size3: 'M',
+    size4: 'M',
+    size5: 'M',
+  });
   const [shirt, setShirt] = useState({
     size: '',
   });
@@ -41,9 +49,6 @@ const RegisterForm = () => {
       lunchFryday: '',
       lunchSaturday: '',
       guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
     },
     guest2: {
       name: '',
@@ -52,9 +57,6 @@ const RegisterForm = () => {
       lunchFryday: '',
       lunchSaturday: '',
       guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
     },
     guest3: {
       name: '',
@@ -63,9 +65,6 @@ const RegisterForm = () => {
       lunchFryday: '',
       lunchSaturday: '',
       guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
     },
     guest4: {
       name: '',
@@ -74,9 +73,6 @@ const RegisterForm = () => {
       lunchFryday: '',
       lunchSaturday: '',
       guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
     },
     guest5: {
       name: '',
@@ -85,9 +81,6 @@ const RegisterForm = () => {
       lunchFryday: '',
       lunchSaturday: '',
       guestBuyShirt: '',
-      shirt: {
-        size: '',
-      },
     },
   });
 
@@ -127,6 +120,8 @@ const RegisterForm = () => {
         lunchFryday,
         lunchSaturday,
         buyShirt,
+        manyBuyShirt,
+        shirtSizes,
         shirt,
         priceVeteran,
         manyGuests,
@@ -407,19 +402,18 @@ const RegisterForm = () => {
               <div className="mb-4 w-full">
                 <InputMask
                   className="w-full border border-gray-400 p-2 rounded-lg"
-                  type="tel"
+                  type="tell"
                   mask="(99) 9 9999 - 9999"
                   id="tellphone"
-                  placeholder="Perfuntar formato do Número de Telefone"
+                  placeholder="Telefone ou Celular"
                   value={tellphone}
                   onChange={(e) => setTellphone(e.target.value)}
                 />
               </div>
               <div className="mb-4 w-full">
-                <InputMask
+                <input
                   className="w-full border border-gray-400 p-2 rounded-lg"
-                  type="tel"
-                  mask="(99) 9 9999 - 9999"
+                  type="cell"
                   id="cellphone"
                   placeholder="Celular"
                   value={cellphone}
@@ -437,6 +431,9 @@ const RegisterForm = () => {
             </h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
+                <p className="text-gray-400 text-sm">
+                  Será realizado dia xx/xx/2023
+                </p>
                 <div className="flex text-center gap-x-2">
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
@@ -458,7 +455,7 @@ const RegisterForm = () => {
                       label={`Valor: 50 R$`}
                       className="text-center text-md text-[#002776]"
                     ></optgroup>
-                    <option value="" disabled>
+                    <option value="" disabled className="text-md">
                       Almoço na Sexta-feira?
                     </option>
                     <option value={false}>Não</option>
@@ -467,6 +464,9 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div className="mb-4 w-full">
+                <p className="text-gray-400 text-sm">
+                  Será realizado dia xx/xx/2023
+                </p>
                 <div className="flex text-center gap-x-2">
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
@@ -488,8 +488,8 @@ const RegisterForm = () => {
                       label={`Valor: 70 R$`}
                       className="text-center text-md text-[#002776]"
                     ></optgroup>
-                    <option value="" disabled>
-                      Almoço no Sábado?
+                    <option value="" disabled className="text-md">
+                      Churrasco no Sábado?
                     </option>
                     <option value={false}>Não</option>
                     <option value={true}>Sim</option>
@@ -497,6 +497,9 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div className="mb-4 w-full">
+                <p className="text-gray-400 text-sm">
+                  Será entrege dia xx/xx/2023
+                </p>
                 <select
                   className="border border-gray-400 p-2 rounded-lg w-full"
                   id="buyShirt"
@@ -523,8 +526,8 @@ const RegisterForm = () => {
                     label={`Valor: 40 R$`}
                     className="text-center text-md text-[#002776]"
                   ></optgroup>
-                  <option value="" disabled>
-                    Camisa Oficial Do 19° Encontro?
+                  <option value="" disabled className="text-md">
+                    Camisa Oficial do 19° Encontro?
                   </option>
                   <option value={false}>Não</option>
                   <option value={true}>Sim</option>
@@ -532,6 +535,9 @@ const RegisterForm = () => {
               </div>
               {buyShirt === 'true' && (
                 <div className="mb-4">
+                  <p className="text-gray-400 text-sm">
+                    Selecione o tamanho da sua camisa
+                  </p>
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
                     value={shirt.size}
@@ -554,24 +560,6 @@ const RegisterForm = () => {
                   </select>
                 </div>
               )}
-              <div className="mb-4 w-full">
-                <select
-                  className="border border-gray-400 p-2 rounded-lg w-full"
-                  id="manyGuests"
-                  value={manyGuests}
-                  onChange={(e) => setManyGuests(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Quantidade de convidados
-                  </option>
-                  <option value={0}>0</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </div>
               <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
                 Total:{' '}
                 <span className="text-[#002776] font-extrabold">
@@ -582,8 +570,84 @@ const RegisterForm = () => {
             </div>
           </div>
         </div>
+        {/* Camisas adcionais */}
+        <div className="card">
+          <div className="flex flex-col justify-between">
+            <div className="mb-4 w-full">
+              <p className="text-gray-400 text-sm">
+                Quantidade de camisas adicionais
+              </p>
+              <select
+                className="border border-gray-400 p-2 rounded-lg w-full"
+                value={manyBuyShirt}
+                onChange={(e) => setManyBuyShirt(e.target.value)}
+              >
+                <option value="" disabled>
+                  Selecione a quantidade
+                </option>
+                <option value={0}>0</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+              </select>
+            </div>
+            <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: manyBuyShirt }, (_, i) => (
+                <div key={i} className="mb-4">
+                  <p className="text-gray-400 text-sm">
+                    Selecione o tamanho da camisa adicional {i + 1}
+                  </p>
+                  <select
+                    className="border border-gray-400 p-2 rounded-lg w-full"
+                    value={shirtSizes[`size${i + 1}`]}
+                    placeholder="Tamanho da camisa"
+                    onChange={(e) => {
+                      setShirtSizes({
+                        ...shirtSizes,
+                        [`size${i + 1}`]: e.target.value,
+                      });
+                    }}
+                  >
+                    <option value="" disabled>
+                      Tamanho da camisa
+                    </option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XG">XG</option>
+                    <option value="XXG">XXG</option>
+                    <option value="XXG">XXXG</option>
+                    <option value="XXG">XXXXG</option>
+                  </select>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
         {/* Acompanhantes */}
         <div className="card">
+          <div className="mb-4 w-full">
+            <p className="text-gray-400 text-sm">Deseja levar convidados?</p>
+            <select
+              className="border border-gray-400 p-2 rounded-lg w-full"
+              id="manyGuests"
+              value={manyGuests}
+              onChange={(e) => setManyGuests(e.target.value)}
+            >
+              <option value="" disabled>
+                Quantidade de convidados
+              </option>
+              <option value={0}>0</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
           {manyGuests > 0 && (
             <div className="flex flex-col justify-between">
               <h3 className="my-5 text-center w-full">
@@ -742,96 +806,6 @@ const RegisterForm = () => {
                           </option>
                           <option value={false}>Não</option>
                           <option value={true}>Sim</option>
-                        </select>
-                      </div>
-                    )}
-                    {guest[`guest${i + 1}`].lunchSaturday != '' && (
-                      <div className="mb-4 w-full">
-                        <select
-                          className="border border-gray-400 p-2 rounded-lg w-full"
-                          id={`guestBuyShirt${i + 1}`}
-                          value={guest[`guest${i + 1}`].guestBuyShirt}
-                          onChange={(e) => {
-                            setGuest({
-                              ...guest,
-                              [`guest${i + 1}`]: {
-                                ...guest[`guest${i + 1}`],
-                                guestBuyShirt: e.target.value,
-                              },
-                            });
-                            if (e.target.value === 'true') {
-                              setPriceGuest((prevPrice) => {
-                                return {
-                                  ...prevPrice,
-                                  [`guest${i + 1}`]:
-                                    (prevPrice[`guest${i + 1}`] || 0) + 40,
-                                };
-                              });
-                            } else if (
-                              e.target.value === 'false' &&
-                              (priceGuest[`guest${i + 1}`] || 0) >= 40 &&
-                              e.target.value === 'false' &&
-                              (priceGuest[`guest${i + 1}`] || 0) != 50 &&
-                              e.target.value === 'false' &&
-                              (priceGuest[`guest${i + 1}`] || 0) != 70 &&
-                              e.target.value === 'false' &&
-                              (priceGuest[`guest${i + 1}`] || 0) != 120
-                            ) {
-                              setPriceGuest((prevPrice) => {
-                                return {
-                                  ...prevPrice,
-                                  [`guest${i + 1}`]:
-                                    (prevPrice[`guest${i + 1}`] || 0) - 40,
-                                };
-                              });
-                            }
-                          }}
-                        >
-                          <optgroup
-                            label={`Valor: 40 R$`}
-                            className="text-center text-md text-[#002776]"
-                          ></optgroup>
-                          <option value="" disabled>
-                            Camisa Oficial do 19° Encontro?
-                          </option>
-                          <option value={false}>Não</option>
-                          <option value={true}>Sim</option>
-                        </select>
-                      </div>
-                    )}
-                    {guest[`guest${i + 1}`].guestBuyShirt === 'true' && (
-                      <div className="mb-4">
-                        <select
-                          className="border border-gray-400 p-2 rounded-lg w-full"
-                          value={guest[`guest${i + 1}`].shirt.size}
-                          onChange={(e) =>
-                            setGuest({
-                              ...guest,
-                              [`guest${i + 1}`]: {
-                                ...guest[`guest${i + 1}`],
-                                shirt: {
-                                  ...guest[`guest${i + 1}`].shirt,
-                                  size: e.target.value,
-                                },
-                              },
-                            })
-                          }
-                        >
-                          <optgroup
-                            label={`Valor: 70 R$`}
-                            className="text-center text-md text-[#002776]"
-                          ></optgroup>
-                          <option value="" disabled>
-                            Tamanho
-                          </option>
-                          <option value="P">P</option>
-                          <option value="M">M</option>
-                          <option value="G">G</option>
-                          <option value="GG">GG</option>
-                          <option value="XG">XG</option>
-                          <option value="XXG">XXG</option>
-                          <option value="XXXG">XXXG</option>
-                          <option value="XXXXG">XXXXG</option>
                         </select>
                       </div>
                     )}

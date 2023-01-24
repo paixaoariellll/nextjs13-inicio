@@ -23,6 +23,14 @@ const handler = async (req, res) => {
     lunchFryday: req.body.lunchFryday,
     lunchSaturday: req.body.lunchSaturday,
     buyShirt: req.body.buyShirt,
+    manyBuyShirt: req.body.manyBuyShirt,
+    shirtSizes: {
+      size1: req.body.shirtSizes.size1,
+      size2: req.body.shirtSizes.size2,
+      size3: req.body.shirtSizes.size3,
+      size4: req.body.shirtSizes.size4,
+      size5: req.body.shirtSizes.size5,
+    },
     priceVeteran: req.body.priceVeteran,
     priceGuest: req.body.priceGuest,
     totalPrice: req.body.totalPrice,
@@ -36,9 +44,6 @@ const handler = async (req, res) => {
         lunchSaturday: req.body.guest.guest1.lunchSaturday,
         guestBuyShirt: req.body.guest.guest1.guestBuyShirt,
         price: req.body.guest.guest1.price,
-        shirt: {
-          size: req.body.guest.guest1.shirt.size,
-        },
       },
       guest2: {
         name: req.body.guest.guest2.name,
@@ -48,9 +53,6 @@ const handler = async (req, res) => {
         lunchSaturday: req.body.guest.guest2.lunchSaturday,
         guestBuyShirt: req.body.guest.guest2.guestBuyShirt,
         price: req.body.guest.guest2.price,
-        shirt: {
-          size: req.body.guest.guest2.shirt.size,
-        },
       },
       guest3: {
         name: req.body.guest.guest3.name,
@@ -60,9 +62,6 @@ const handler = async (req, res) => {
         lunchSaturday: req.body.guest.guest3.lunchSaturday,
         guestBuyShirt: req.body.guest.guest3.guestBuyShirt,
         price: req.body.guest.guest3.price,
-        shirt: {
-          size: req.body.guest.guest3.shirt.size,
-        },
       },
       guest4: {
         name: req.body.guest.guest4.name,
@@ -72,9 +71,6 @@ const handler = async (req, res) => {
         lunchSaturday: req.body.guest.guest4.lunchSaturday,
         guestBuyShirt: req.body.guest.guest4.guestBuyShirt,
         price: req.body.guest.guest4.price,
-        shirt: {
-          size: req.body.guest.guest4.shirt.size,
-        },
       },
       guest5: {
         name: req.body.guest.guest5.name,
@@ -84,9 +80,6 @@ const handler = async (req, res) => {
         lunchSaturday: req.body.guest.guest5.lunchSaturday,
         guestBuyShirt: req.body.guest.guest5.guestBuyShirt,
         price: req.body.guest.guest5.price,
-        shirt: {
-          size: req.body.guest.guest5.shirt.size,
-        },
       },
     },
     shirt: {
