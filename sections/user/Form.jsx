@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 
 const RegisterFormUser = () => {
   const [register, setRegister] = useState('');
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
   const [name, setName] = useState('');
   const [priceVeteran, setPriceVeteran] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -164,16 +165,16 @@ const RegisterFormUser = () => {
       });
   };
 
+  function handlePriceUpdate() {
+    setTotalPrice(calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt);
+  }
+
   function calculateTotalPrice() {
     let total = 0;
     for (let i = 0; i < manyGuests; i++) {
       total += priceGuest[`guest${i + 1}`] || 0;
     }
     return total;
-  }
-
-  function handlePriceUpdate() {
-    setTotalPrice(calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt);
   }
 
   return (
@@ -580,7 +581,9 @@ const RegisterFormUser = () => {
               <select
                 className="border border-gray-400 p-2 rounded-lg w-full"
                 value={manyBuyShirt}
-                onChange={(e) => setManyBuyShirt(e.target.value)}
+                onChange={(e) => {
+                  setManyBuyShirt(e.target.value);
+                }}
               >
                 <option value="" disabled>
                   Selecione a quantidade
@@ -816,43 +819,45 @@ const RegisterFormUser = () => {
               </div>
             </div>
           )}
-          {calculateTotalPrice > 0 && (
-            <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-              Valor para todos os convidados:{' '}
-              <span className="text-[#002776] font-extrabold">
-                {calculateTotalPrice()}
-              </span>{' '}
-              R$
-            </p>
-          )}
+          {totalPrice
+            ? calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt && (
+                <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                  Valor Total:{' '}
+                  <span className="text-[#002776] font-extrabold">
+                    {totalPrice}
+                  </span>{' '}
+                  R$
+                </p>
+              )
+            : ''}
           <div>
-            {totalPrice > 0 && (
-              <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-                Valor Total:{' '}
-                <span className="text-[#002776] font-extrabold">
-                  {totalPrice}
-                </span>{' '}
-                R$
-              </p>
-            )}
-            <div>
-              <button
-                type="button"
-                className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-                onClick={handlePriceUpdate}
-              >
-                Atualizar valor total
-              </button>
-            </div>
+            <button
+              type="button"
+              className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+              onClick={() => {
+                calculateTotalPrice();
+                handlePriceUpdate();
+                setShowSubmitButton(true);
+              }}
+            >
+              Atualizar valor total
+            </button>
           </div>
         </div>
+        {/* Enviar inscrição */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <button
-            type="submit"
-            className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-          >
-            Enviar inscrição
-          </button>
+          {showSubmitButton && (
+            <button
+              type="submit"
+              onClick={() => {
+                calculateTotalPrice();
+                handlePriceUpdate();
+              }}
+              className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+            >
+              Enviar inscrição
+            </button>
+          )}
         </div>
       </form>
     </section>
