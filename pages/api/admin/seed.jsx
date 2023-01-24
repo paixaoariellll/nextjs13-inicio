@@ -4,6 +4,9 @@ import Registers from '../../../models/Registers';
 import Users from '../../../models/Users';
 
 const handler = async (req, res) => {
+  if (req.method !== 'GET') {
+    return;
+  }
   await db.connect();
   await Registers.deleteMany();
   await Registers.insertMany(data.registers);
