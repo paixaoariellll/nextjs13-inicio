@@ -28,11 +28,11 @@ const RegisterFormAdmin = () => {
   const [buyShirt, setBuyShirt] = useState('');
   const [manyBuyShirt, setManyBuyShirt] = useState(0);
   const [shirtSizes, setShirtSizes] = useState({
-    size1: 'M',
-    size2: 'M',
-    size3: 'M',
-    size4: 'M',
-    size5: 'M',
+    size1: '',
+    size2: '',
+    size3: '',
+    size4: '',
+    size5: '',
   });
   const [shirt, setShirt] = useState({
     size: '',
@@ -131,13 +131,12 @@ const RegisterFormAdmin = () => {
         totalPrice,
       }),
     });
-    /*  if (response.ok) {
-      window.location.href = '/confirm';
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result);
     } else {
       console.error();
-    } */
-    const result = await response.json();
-    console.log(result);
+    }
   };
 
   const generateYears = () => {
@@ -174,7 +173,7 @@ const RegisterFormAdmin = () => {
   }
 
   function handlePriceUpdate() {
-    setTotalPrice(calculateTotalPrice() + priceVeteran);
+    setTotalPrice(calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt);
   }
 
   return (
@@ -507,10 +506,10 @@ const RegisterFormAdmin = () => {
                   onChange={(e) => {
                     setBuyShirt(e.target.value);
                     if (e.target.value === 'true') {
-                      setPriceVeteran(priceVeteran + 40);
+                      setPriceVeteran(priceVeteran + 50);
                     } else if (
                       e.target.value === 'false' &&
-                      priceVeteran >= 40 &&
+                      priceVeteran >= 50 &&
                       e.target.value === 'false' &&
                       priceVeteran != 50 &&
                       e.target.value === 'false' &&
@@ -518,7 +517,7 @@ const RegisterFormAdmin = () => {
                       e.target.value === 'false' &&
                       priceVeteran != 120
                     ) {
-                      setPriceVeteran(priceVeteran - 40);
+                      setPriceVeteran(priceVeteran - 50);
                     }
                   }}
                 >
@@ -574,10 +573,10 @@ const RegisterFormAdmin = () => {
         <div className="card">
           <div className="flex flex-col justify-between">
             <div className="mb-4 max-w-xs w-full flex flex-col mx-auto">
+              <h3 className="my-5 text-center w-full">Camisas adicionais</h3>
               <p className="text-gray-400 text-sm text-center">
                 Quantidade de camisas adicionais
               </p>
-
               <select
                 className="border border-gray-400 p-2 rounded-lg w-full"
                 value={manyBuyShirt}
@@ -594,7 +593,6 @@ const RegisterFormAdmin = () => {
                 <option value={5}>5</option>
               </select>
             </div>
-            <h3 className="my-5 text-center w-full">Quantidade de camisas</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {Array.from({ length: manyBuyShirt }, (_, i) => (
                 <div key={i} className="mb-4">
