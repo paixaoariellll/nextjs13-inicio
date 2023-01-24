@@ -4,6 +4,7 @@ import { Navbar, Footer } from '/components';
 import { HeroAdmin, FormAdmin } from '../sections/admin';
 import { Form, Hero } from '../sections/user';
 import { useSession } from 'next-auth/react';
+import { ToastContainer } from 'react-toastify';
 import '../styles/globals.css';
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
     <main className="lg:px-10 pt-10 pb-0 bg-gray-200">
       {session?.user ? (
         <>
+          <ToastContainer />
           <Navbar />
           <HeroAdmin />
           <FormAdmin />
@@ -19,6 +21,7 @@ function Home() {
         </>
       ) : (
         <>
+          <ToastContainer />
           <Navbar />
           <Hero />
           <Form />

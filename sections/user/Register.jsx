@@ -1,32 +1,28 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { HiOutlineMail } from 'react-icons/hi';
-import { FcGoogle } from 'react-icons/fc';
-import { signIn, useSession } from 'next-auth/react';
+import axios from 'axios';
 import Link from 'next/link';
+import React, { useState } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { HiOutlineMail, HiOutlineUserAdd } from 'react-icons/hi';
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session?.user) {
-      window.history.back();
-    }
-  }, [session]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const data = await signIn('credentials', {
-        redirect: false,
+      const { data } = await axios.post('/api/auth/signup', {
+        name,
         email,
         password,
       });
-      console.log(data);
+      if (result.ok) {
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +41,7 @@ const Login = () => {
           className=" p-6 rounded-lg min-w-fit w-1/3 mx-auto"
         >
           <div className="flex flex-row items-center justify-center">
-            <p className="text-lg mb-0 mr-4">Entre com:</p>
+            <p className="text-lg mb-0 mr-4">Cadastre-se com:</p>
             <button
               type="button"
               className="rounded-full border-2 border-gray-200 p-2"
@@ -55,6 +51,22 @@ const Login = () => {
           </div>
           <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
             <p className="text-center font-semibold mx-4 mb-0">Ou</p>
+          </div>
+          <div className="mb-4">
+            <div className="flex items-center justify-between">
+              <input
+                className="border text-xl border-gray-400 px-5 py-1 rounded-md w-full"
+                type="name"
+                placeholder="Nome"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <div className="mx-2 z-10 rounded-full p-2 flex">
+                <HiOutlineUserAdd className="text-2xl" />
+              </div>
+            </div>
           </div>
           <div className="mb-4">
             <div className="flex items-center justify-between">
@@ -98,20 +110,19 @@ const Login = () => {
             </div>
           </div>
           <div className="flex justify-between pr-16 mb-4">
-            <p className="text-sm">Não possui uma conta?</p>
+            <p className="text-sm">Possui uma conta?</p>
             <Link
-              href={'./register'}
+              href={'./login'}
               className="text-sm hover:underline hover:text-blue-500"
             >
-              Cadastre-se
+              Entrar
             </Link>
           </div>
-
           <button
             type="submit"
             className="block justify-center w-fit mx-auto text-xl rounded bg-[#002776] px-12 py-2 font-medium text-white hover:bg-[#009C3B]"
           >
-            Entrar
+            Cadastrar-se
           </button>
         </form>
       </div>
@@ -119,4 +130,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
