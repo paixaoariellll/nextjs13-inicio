@@ -3,92 +3,13 @@ import db from '@/utils/db';
 
 const postHandler = async (req, res) => {
   await db.connect();
+  await Registers.createIndexes({ unique: true });
   const newRegister = new Registers({
-    name: 'a',
-    stageName: 'a',
-    postGraduation: 'a',
-    CPF: 'a',
-    rgCivil: 'a',
-    rgMilitary: 'a',
-    CEP: 'a',
-    number: 'a',
-    address: 'a',
-    neighborhood: 'a',
-    city: 'a',
-    uf: 'a',
-    formation: 1980,
-    email: 'a',
-    tellphone: 'a',
-    cellphone: 'a',
-    lunchFryday: 'a',
-    lunchSaturday: 'a',
-    buyShirt: true,
-    shirt: {
-      size: 'M',
-    },
-    manyBuyShirt: 0,
-    shirtSizes: {
-      size1: 'M',
-      size2: 'M',
-      size3: 'M',
-      size4: 'M',
-      size5: 'M',
-    },
-    priceVeteran: 0,
-    priceGuest: 0,
-    totalPrice: 0,
-    manyGuests: 0,
-    guest: {
-      guest1: {
-        name: 'a',
-        rg: 'a',
-        kinship: 'a',
-        lunchFryday: 'a',
-        lunchSaturday: 'a',
-        guestBuyShirt: 'a',
-        price: 0,
-      },
-      guest2: {
-        name: 'a',
-        rg: 'a',
-        kinship: 'a',
-        lunchFryday: 'a',
-        lunchSaturday: 'a',
-        guestBuyShirt: 'a',
-        price: 0,
-      },
-      guest3: {
-        name: 'a',
-        rg: 'a',
-        kinship: 'a',
-        lunchFryday: 'a',
-        lunchSaturday: 'a',
-        guestBuyShirt: 'a',
-        price: 0,
-      },
-      guest4: {
-        name: 'a',
-        rg: 'a',
-        kinship: 'a',
-        lunchFryday: 'a',
-        lunchSaturday: 'a',
-        guestBuyShirt: 'a',
-        price: 0,
-      },
-      guest5: {
-        name: 'a',
-        rg: 'a',
-        kinship: 'a',
-        lunchFryday: 'a',
-        lunchSaturday: 'a',
-        guestBuyShirt: 'a',
-        price: 0,
-      },
-    },
+    ...req.body,
   });
-  const registers = await newRegister.save();
+  const register = await newRegister.save();
   await db.disconnect();
-  res.send({ message: 'Registro addicionado com sucesso!', registers });
+  res.send({ message: 'Registro addicionado com sucesso!', register });
 };
 
 const getHandler = async (req, res) => {
@@ -102,7 +23,7 @@ const putHandler = async (req, res) => {
   await db.connect();
   const { id } = req.params;
   const updatedData = req.body;
-  const register = await Registers.findByIdAndUpdate(id, updatedData, {
+  const register = await Registers.findOneAndUpdate({ _id: id }, updatedData, {
     new: true,
   });
   await db.disconnect();

@@ -2,12 +2,13 @@ import bcryptjs from 'bcryptjs';
 import db from '@/utils/db';
 import Users from '@/models/Users';
 
-async function handler(req, res) {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     await db.connect();
 
     const { name, email, password } = req.body;
-    if (!name || !email || !email.includes('@')) {
+
+    if (!email || !email.includes('@')) {
       res.status(422).json({
         message: 'Erro de validação.',
       });
@@ -24,9 +25,11 @@ async function handler(req, res) {
     const newUser = new Users({
       name,
       email,
-      password: bcryptjs.hashSync(password),
       isAdmin: false,
     });
+
+    const salt = await bcryptjs.genSalt(10);
+    newUser.password = await bcryptjs.hash(password, salt);
 
     const user = await newUser.save();
     await db.disconnect();
@@ -35,6 +38,6 @@ async function handler(req, res) {
       user,
     });
   }
-}
+};
 
 export default handler;

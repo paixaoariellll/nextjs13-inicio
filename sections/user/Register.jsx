@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -15,13 +14,16 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/auth/signup', {
-        name,
-        email,
-        password,
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
       });
-      if (result.ok) {
+      const data = await response.json();
+      if (data.ok) {
         console.log(data);
+      } else {
+        console.error();
       }
     } catch (error) {
       console.log(error);

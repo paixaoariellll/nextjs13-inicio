@@ -81,7 +81,6 @@ const registers = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Registers =
-  mongoose.models.Registers || mongoose.model('Registers', registers);
+const Registers = mongoose.models.Registers || mongoose.model('Registers', registers);
 
 export default Registers;

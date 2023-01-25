@@ -3,7 +3,7 @@
 import { SessionProvider } from 'next-auth/react';
 
 const RootLayout = ({ children }) => (
-  <html>
+  <html lang="pt-br">
     <head />
     <SessionProvider>
       <body>{children}</body>

@@ -1,5 +1,3 @@
-'use strict';
-
 import bcryptjs from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import db from '@/utils/db';
@@ -12,7 +10,7 @@ export default NextAuth({
   },
   providers: [
     CredentialsProvider({
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         await db.connect();
         const user = await Users.findOne({
           email: credentials.email,
