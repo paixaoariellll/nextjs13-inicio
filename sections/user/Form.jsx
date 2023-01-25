@@ -193,12 +193,15 @@ const RegisterFormUser = () => {
   return (
     <section id="Form" className="pt-10 px-10 pb-0">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <div className="title">
+          <h1>
+            Volta Ao Berço Do Especialista
+          </h1>
+          <h3>19° Encontro </h3>
+        </div>
         {/* Informações Pessoais */}
         <div className="card">
-          <div className="text-center gap-10">
-            <h1> Volta ao Berço do Especialista</h1>
-            <h2>19° Encontro </h2>
-          </div>
+          <h3 className='title'>Formulário de inscrição</h3>
           <div className="flex flex-col justify-between">
             <h3 className="my-5 text-center w-full">Informações Pessoais</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -437,11 +440,15 @@ const RegisterFormUser = () => {
           </div>
         </div>
         {/* Sobre o Encontro */}
+        <div className="title">
+          <h2 className="my-5 text-center w-full">
+            Volta Ao Berço Do Especialista
+          </h2>
+        </div>
+        {/* Veteranos */}
         <div className="card">
           <div className="flex flex-col justify-between">
-            <h3 className="my-5 text-center w-full">
-              De Volta Ao Berço Do Especialista
-            </h3>
+            <h3 className="my-5 text-center w-full">Veteranos</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
                 <p className="text-gray-400 text-sm text-center">
@@ -523,8 +530,11 @@ const RegisterFormUser = () => {
         <div className="card">
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
             <div className="mb-4">
-              <div className=" gap-x-5">
-                <div className="mb-4 w-full">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+                <h3 className="my-5 text-center col-span-2 w-full">
+                  Camisa do Encontro
+                </h3>
+                <div className="mb-4 w-full col-span-2 md:col-span-1">
                   <p className="text-gray-400 text-sm text-center">
                     Camisa oficial do Encontro
                   </p>
@@ -533,36 +543,27 @@ const RegisterFormUser = () => {
                     id="buyShirt"
                     value={buyShirt}
                     onChange={(e) => {
-                      setBuyShirt(e.target.value);
+                      setBuyShirt(e.target.value === 'true');
                       if (e.target.value === 'true') {
                         setPriceVeteran(priceVeteran + 50);
-                      } else if (
-                        e.target.value === 'false' &&
-                        priceVeteran >= 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 70 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 120
-                      ) {
+                      } else {
                         setPriceVeteran(priceVeteran - 50);
                       }
                     }}
                   >
                     <optgroup
-                      label={`Valor: 40 R$`}
+                      label={`Valor: 50 R$`}
                       className="text-center text-md text-[#002776]"
                     ></optgroup>
                     <option value="" disabled className="text-md">
-                      Camisa oficial do encontro?
+                      Deseja a camisa oficial do encontro?
                     </option>
                     <option value={false}>Não</option>
                     <option value={true}>Sim</option>
                   </select>
                 </div>
-                {buyShirt === 'true' && (
-                  <div className="mb-4 w-full">
+                {buyShirt && (
+                  <div className="mb-4 w-full col-span-2 md:col-span-1">
                     <p className="text-gray-400 text-sm text-center">
                       Selecione o tamanho da sua camisa
                     </p>
@@ -588,28 +589,28 @@ const RegisterFormUser = () => {
                     </select>
                   </div>
                 )}
-
-                <h3 className="my-5 text-center w-full">Camisas adicionais</h3>
-                <p className="text-gray-400 text-sm text-center">
-                  Quantidade de camisas adicionais
-                </p>
-                <select
-                  className="mb-4 border w-full border-gray-400 p-2 rounded-lg"
-                  value={manyBuyShirt}
-                  onChange={(e) => {
-                    setManyBuyShirt(e.target.value);
-                  }}
-                >
-                  <option value="" disabled>
-                    Selecione a quantidade
-                  </option>
-                  <option value={0}>0</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
+                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
+                  <p className="text-gray-400 text-sm text-center">
+                    Quantidade de camisas adicionais
+                  </p>
+                  <select
+                    className="mb-4 border w-full border-gray-400 p-2 rounded-lg"
+                    value={manyBuyShirt}
+                    onChange={(e) => {
+                      setManyBuyShirt(e.target.value);
+                    }}
+                  >
+                    <option value="" disabled>
+                      Deseja camisas adicionais?
+                    </option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                  </select>
+                </div>
               </div>
               <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 xl:grid-cols-2">
                 {Array.from({ length: manyBuyShirt }, (_, i) => (
@@ -675,6 +676,7 @@ const RegisterFormUser = () => {
         </div>
         {/* Acompanhantes */}
         <div className="card">
+          <h3 className="my-5 text-center w-full">Acompanhantes</h3>
           <div className="mb-4 max-w-xs w-full flex flex-col mx-auto">
             <p className="text-gray-400 text-sm text-center">
               Deseja levar convidados?
