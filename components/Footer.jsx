@@ -13,7 +13,7 @@ export const Footer = () => {
         E-mail: encontrao@amigafa.com
       </h5>
       <h5 className="text-center text-blue-700">CNPJ: 00.980.710/0001-25</h5>
-      <p className="text-center text-gray-500 mt-5">
+      <p className="text-center text-sm text-gray-500 mt-5">
         &copy; {year} A.M.I.G.A. Todos os direitos reservados.
       </p>
     </footer>

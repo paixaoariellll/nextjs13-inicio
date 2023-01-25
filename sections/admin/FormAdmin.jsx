@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import InputMask from 'react-input-mask';
 
 const RegisterFormAdmin = () => {
   const [register, setRegister] = useState('');
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
   const [name, setName] = useState('');
   const [priceVeteran, setPriceVeteran] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -26,7 +28,7 @@ const RegisterFormAdmin = () => {
   const [lunchFryday, setLunchFryday] = useState('');
   const [lunchSaturday, setLunchSaturday] = useState('');
   const [buyShirt, setBuyShirt] = useState('');
-  const [manyBuyShirt, setManyBuyShirt] = useState(0);
+  const [manyBuyShirt, setManyBuyShirt] = useState('');
   const [shirtSizes, setShirtSizes] = useState({
     size1: '',
     size2: '',
@@ -134,6 +136,7 @@ const RegisterFormAdmin = () => {
     if (response.ok) {
       const result = await response.json();
       console.log(result);
+      window.location.href = '#Hero';
     } else {
       console.error();
     }
@@ -164,6 +167,10 @@ const RegisterFormAdmin = () => {
       });
   };
 
+  function handlePriceUpdate() {
+    setTotalPrice(calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt);
+  }
+
   function calculateTotalPrice() {
     let total = 0;
     for (let i = 0; i < manyGuests; i++) {
@@ -172,19 +179,27 @@ const RegisterFormAdmin = () => {
     return total;
   }
 
-  function handlePriceUpdate() {
-    setTotalPrice(calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt);
-  }
+  const dimensions = {
+    P: { height: 67, width: 49 },
+    M: { height: 73, width: 53 },
+    G: { height: 76, width: 57 },
+    GG: { height: 79, width: 60 },
+    XGG: { height: 82, width: 63 },
+    XXGG: { height: 82, width: 69 },
+    XXXGG: { height: 82, width: 72 },
+    XXXXGG: { height: 82, width: 75 },
+  };
 
   return (
-    <section id="Form" className="md:pt-10 px-10 pb-0">
+    <section id="Form" className="pt-10 px-10 pb-0">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <div className="title">
+          <h1>Volta Ao Berço Do Especialista</h1>
+          <h3>19° Encontro </h3>
+        </div>
         {/* Informações Pessoais */}
         <div className="card">
-          <div className="text-center gap-10">
-            <h1> Volta ao Berço do Especialista</h1>
-            <h2>19° Encontro </h2>
-          </div>
+          <h3 className="title">Formulário de inscrição</h3>
           <div className="flex flex-col justify-between">
             <h3 className="my-5 text-center w-full">Informações Pessoais</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -423,15 +438,19 @@ const RegisterFormAdmin = () => {
           </div>
         </div>
         {/* Sobre o Encontro */}
+        <div className="title">
+          <h2 className="my-5 text-center w-full">
+            Volta Ao Berço Do Especialista
+          </h2>
+        </div>
+        {/* Veteranos */}
         <div className="card">
           <div className="flex flex-col justify-between">
-            <h3 className="my-5 text-center w-full">
-              De Volta Ao Berço Do Especialista
-            </h3>
+            <h3 className="my-5 text-center w-full">Veteranos</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
                 <p className="text-gray-400 text-sm text-center">
-                  Será realizado dia xx/xx/2023
+                  Dia 23/06/2023
                 </p>
                 <div className="flex text-center gap-x-2">
                   <select
@@ -464,7 +483,7 @@ const RegisterFormAdmin = () => {
               </div>
               <div className="mb-4 w-full">
                 <p className="text-gray-400 text-sm text-center">
-                  Será realizado dia xx/xx/2023
+                  Dia 24/06/2023
                 </p>
                 <div className="flex text-center gap-x-2">
                   <select
@@ -495,71 +514,7 @@ const RegisterFormAdmin = () => {
                   </select>
                 </div>
               </div>
-              <div className="mb-4 w-full">
-                <p className="text-gray-400 text-sm text-center">
-                  Será entrege dia xx/xx/2023
-                </p>
-                <select
-                  className="border border-gray-400 p-2 rounded-lg w-full"
-                  id="buyShirt"
-                  value={buyShirt}
-                  onChange={(e) => {
-                    setBuyShirt(e.target.value);
-                    if (e.target.value === 'true') {
-                      setPriceVeteran(priceVeteran + 50);
-                    } else if (
-                      e.target.value === 'false' &&
-                      priceVeteran >= 50 &&
-                      e.target.value === 'false' &&
-                      priceVeteran != 50 &&
-                      e.target.value === 'false' &&
-                      priceVeteran != 70 &&
-                      e.target.value === 'false' &&
-                      priceVeteran != 120
-                    ) {
-                      setPriceVeteran(priceVeteran - 50);
-                    }
-                  }}
-                >
-                  <optgroup
-                    label={`Valor: 40 R$`}
-                    className="text-center text-md text-[#002776]"
-                  ></optgroup>
-                  <option value="" disabled className="text-md">
-                    Camisa Oficial do 19° Encontro?
-                  </option>
-                  <option value={false}>Não</option>
-                  <option value={true}>Sim</option>
-                </select>
-              </div>
-              {buyShirt === 'true' && (
-                <div className="mb-4">
-                  <p className="text-gray-400 text-sm text-center">
-                    Selecione o tamanho da sua camisa
-                  </p>
-                  <select
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    value={shirt.size}
-                    placeholder="Tamanho da camisa"
-                    onChange={(e) =>
-                      setShirt({ ...shirt, size: e.target.value })
-                    }
-                  >
-                    <option value="" disabled>
-                      Tamanho da camisa
-                    </option>
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                    <option value="XG">XG</option>
-                    <option value="XXG">XXG</option>
-                    <option value="XXG">XXXG</option>
-                    <option value="XXG">XXXXG</option>
-                  </select>
-                </div>
-              )}
-              <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+              <p className="sm:col-span-4 text-center">
                 Total:{' '}
                 <span className="text-[#002776] font-extrabold">
                   {priceVeteran}
@@ -569,66 +524,157 @@ const RegisterFormAdmin = () => {
             </div>
           </div>
         </div>
-        {/* Camisas adcionais */}
+        {/* Camisas */}
         <div className="card">
-          <div className="flex flex-col justify-between">
-            <div className="mb-4 max-w-xs w-full flex flex-col mx-auto">
-              <h3 className="my-5 text-center w-full">Camisas adicionais</h3>
-              <p className="text-gray-400 text-sm text-center">
-                Quantidade de camisas adicionais
-              </p>
-              <select
-                className="border border-gray-400 p-2 rounded-lg w-full"
-                value={manyBuyShirt}
-                onChange={(e) => setManyBuyShirt(e.target.value)}
-              >
-                <option value="" disabled>
-                  Selecione a quantidade
-                </option>
-                <option value={0}>0</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-              </select>
-            </div>
-            <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {Array.from({ length: manyBuyShirt }, (_, i) => (
-                <div key={i} className="mb-4">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+            <div className="mb-4">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+                <h3 className="my-5 text-center col-span-2 w-full">
+                  Camisa do Encontro
+                </h3>
+                <div className="mb-4 w-full col-span-2 md:col-span-1">
                   <p className="text-gray-400 text-sm text-center">
-                    Tamanho da camisa {i + 1}
+                    Camisa oficial do Encontro
                   </p>
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
-                    value={shirtSizes[`size${i + 1}`]}
-                    placeholder="Tamanho da camisa"
+                    id="buyShirt"
+                    value={buyShirt}
                     onChange={(e) => {
-                      setShirtSizes({
-                        ...shirtSizes,
-                        [`size${i + 1}`]: e.target.value,
-                      });
+                      setBuyShirt(e.target.value === 'true');
+                      if (e.target.value === 'true') {
+                        setPriceVeteran(priceVeteran + 50);
+                      } else {
+                        setPriceVeteran(priceVeteran - 50);
+                      }
+                    }}
+                  >
+                    <optgroup
+                      label={`Valor: 50 R$`}
+                      className="text-center text-md text-[#002776]"
+                    ></optgroup>
+                    <option value="" disabled className="text-md">
+                      Deseja a camisa oficial do encontro?
+                    </option>
+                    <option value={false}>Não</option>
+                    <option value={true}>Sim</option>
+                  </select>
+                </div>
+                {buyShirt && (
+                  <div className="mb-4 w-full col-span-2 md:col-span-1">
+                    <p className="text-gray-400 text-sm text-center">
+                      Selecione o tamanho da sua camisa
+                    </p>
+                    <select
+                      className="border border-gray-400 p-2 rounded-lg w-full"
+                      value={shirt.size}
+                      placeholder="Tamanho da camisa"
+                      onChange={(e) =>
+                        setShirt({ ...shirt, size: e.target.value })
+                      }
+                    >
+                      <option value="" disabled>
+                        Tamanho da camisa
+                      </option>
+                      <option value="P">P</option>
+                      <option value="M">M</option>
+                      <option value="G">G</option>
+                      <option value="GG">GG</option>
+                      <option value="XG">XG</option>
+                      <option value="XXG">XXG</option>
+                      <option value="XXG">XXXG</option>
+                      <option value="XXG">XXXXG</option>
+                    </select>
+                  </div>
+                )}
+                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
+                  <p className="text-gray-400 text-sm text-center">
+                    Quantidade de camisas adicionais
+                  </p>
+                  <select
+                    className="mb-4 border w-full border-gray-400 p-2 rounded-lg"
+                    value={manyBuyShirt}
+                    onChange={(e) => {
+                      setManyBuyShirt(e.target.value);
                     }}
                   >
                     <option value="" disabled>
-                      Tamanho da camisa
+                      Deseja camisas adicionais?
                     </option>
-                    <option value="P">P</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="GG">GG</option>
-                    <option value="XG">XG</option>
-                    <option value="XXG">XXG</option>
-                    <option value="XXG">XXXG</option>
-                    <option value="XXG">XXXXG</option>
+                    <option value={0}>0</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
                   </select>
                 </div>
-              ))}
+              </div>
+              <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 xl:grid-cols-2">
+                {Array.from({ length: manyBuyShirt }, (_, i) => (
+                  <div key={i} className="mb-4 w-full">
+                    <p className="text-gray-400 text-sm text-center">
+                      Tamanho da camisa {i + 1}
+                    </p>
+                    <select
+                      className="border border-gray-400 p-2 rounded-lg w-full"
+                      value={shirtSizes[`size${i + 1}`]}
+                      placeholder="Tamanho da camisa"
+                      onChange={(e) => {
+                        setShirtSizes({
+                          ...shirtSizes,
+                          [`size${i + 1}`]: e.target.value,
+                        });
+                      }}
+                    >
+                      <option value="" disabled>
+                        Tamanho da camisa
+                      </option>
+                      <option value="P">P</option>
+                      <option value="M">M</option>
+                      <option value="G">G</option>
+                      <option value="GG">GG</option>
+                      <option value="XG">XG</option>
+                      <option value="XXG">XXG</option>
+                      <option value="XXG">XXXG</option>
+                      <option value="XXG">XXXXG</option>
+                    </select>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mb-4">
+              <table className="table-auto w-full text-center">
+                <thead>
+                  <tr className="bg-gray-400 text-white">
+                    <th className="px-4 py-2">Tamanho</th>
+                    <th className="px-4 py-2">Altura (cm)</th>
+                    <th className="px-4 py-2">Largura (cm)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(dimensions).map(
+                    ([size, { height, width }]) => (
+                      <tr
+                        key={size}
+                        className="rounded-2xl border-r border-t-0 border-b border-b-gray-400 border-r-gray-400"
+                      >
+                        <td className="px-4 border-x border-x-gray-400 py-2">
+                          {size}
+                        </td>
+                        <td className="px-4 py-2">{height}</td>
+                        <td className="px-4 py-2">{width}</td>
+                      </tr>
+                    ),
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
         {/* Acompanhantes */}
         <div className="card">
+          <h3 className="my-5 text-center w-full">Acompanhantes</h3>
           <div className="mb-4 max-w-xs w-full flex flex-col mx-auto">
             <p className="text-gray-400 text-sm text-center">
               Deseja levar convidados?
@@ -816,43 +862,55 @@ const RegisterFormAdmin = () => {
               </div>
             </div>
           )}
-          {calculateTotalPrice > 0 && (
-            <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-              Valor para todos os convidados:{' '}
-              <span className="text-[#002776] font-extrabold">
-                {calculateTotalPrice()}
-              </span>{' '}
-              R$
-            </p>
-          )}
+          {totalPrice
+            ? calculateTotalPrice() + priceVeteran + 50 * manyBuyShirt && (
+                <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
+                  Valor Total:{' '}
+                  <span className="text-[#002776] font-extrabold">
+                    {totalPrice}
+                  </span>{' '}
+                  R$
+                </p>
+              )
+            : ''}
           <div>
-            {totalPrice > 0 && (
-              <p className="sm:col-span-1 text-center md:col-span-2 lg:col-span-3 xl:col-span-4">
-                Valor Total:{' '}
-                <span className="text-[#002776] font-extrabold">
-                  {totalPrice}
-                </span>{' '}
-                R$
-              </p>
-            )}
-            <div>
-              <button
-                type="button"
-                className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-                onClick={handlePriceUpdate}
-              >
-                Atualizar valor total
-              </button>
-            </div>
+            <button
+              type="button"
+              className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+              onClick={() => {
+                calculateTotalPrice();
+                handlePriceUpdate();
+                setShowSubmitButton(true);
+              }}
+            >
+              Atualizar valor total
+            </button>
           </div>
         </div>
+        {/* Enviar inscrição */}
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <button
-            type="submit"
-            className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-          >
-            Enviar inscrição
-          </button>
+          {showSubmitButton && (
+            <div className="flex flex-col">
+              <div className="flex w-full justify-center mb-4">
+                <button
+                  type="submit"
+                  onClick={() => {
+                    calculateTotalPrice();
+                    handlePriceUpdate();
+                  }}
+                  className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+                >
+                  Enviar inscrição
+                </button>
+              </div>
+              <p className="text-sm">Não conseguiu realizar a inscrição?</p>
+              <Link href="./feedback">
+                <p className="text-center text-sm hover:text-lg hover:font-extrabold">
+                  Clique aqui
+                </p>
+              </Link>
+            </div>
+          )}
         </div>
       </form>
     </section>
