@@ -21,8 +21,10 @@ export const Hero = () => {
               />
             </div>
             <div className="col-span-2 lg:col-span-1">
-              <h1 className="text-[#002776] font-extrabold">A.M.I.G.A.</h1>
-              <h2 className="sm:block text-[#FFDF00]">Unidos Somos Fortes</h2>
+              <h1 className="text-[#002776] font-extrabold">A.M.I.G.A</h1>
+              <h2 className="sm:block text-[#c59131] font-bold">
+                Unidos Somos Fortes
+              </h2>
               <h3 className="mx-auto mt-4">
                 Associação dos Militares Veteranos e Pensionistas de Militares
                 de Guaratinguetá

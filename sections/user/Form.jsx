@@ -194,14 +194,12 @@ const RegisterFormUser = () => {
     <section id="Form" className="pt-10 px-10 pb-0">
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div className="title">
-          <h1>
-            Volta Ao Berço Do Especialista
-          </h1>
+          <h1>Volta Ao Berço Do Especialista</h1>
           <h3>19° Encontro </h3>
         </div>
         {/* Informações Pessoais */}
         <div className="card">
-          <h3 className='title'>Formulário de inscrição</h3>
+          <h3 className="title">Formulário de inscrição</h3>
           <div className="flex flex-col justify-between">
             <h3 className="my-5 text-center w-full">Informações Pessoais</h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -447,43 +445,51 @@ const RegisterFormUser = () => {
         </div>
         {/* Veteranos */}
         <div className="card">
-          <div className="flex flex-col justify-between">
-            <h3 className="my-5 text-center w-full">Veteranos</h3>
-            <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <div className="mb-4 w-full">
-                <p className="text-gray-400 text-sm text-center">
-                  Dia 23/06/2023
-                </p>
-                <div className="flex text-center gap-x-2">
-                  <select
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    id="lunchFryday"
-                    value={lunchFryday}
-                    onChange={(e) => {
-                      setLunchFryday(e.target.value);
-                      if (e.target.value === 'true') {
-                        setPriceVeteran(priceVeteran + 50);
-                      } else if (
-                        e.target.value === 'false' &&
-                        priceVeteran >= 50
-                      ) {
-                        setPriceVeteran(priceVeteran - 50);
-                      }
-                    }}
-                  >
-                    <optgroup
-                      label={`Valor: 50 R$`}
-                      className="text-center text-md text-[#002776]"
-                    ></optgroup>
-                    <option value="" disabled className="text-md">
-                      Almoço na Sexta-feira?
-                    </option>
-                    <option value={false}>Não</option>
-                    <option value={true}>Sim</option>
-                  </select>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+            <div className="mb-4">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+                <h3 className="my-5 text-center col-span-2 w-full">Veterano</h3>
+                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
+                  <p className="text-gray-400 text-sm text-center">
+                    Dia 23/06/2023
+                  </p>
+                  <div className="flex text-center gap-x-2">
+                    <select
+                      className="border border-gray-400 p-2 rounded-lg w-full"
+                      id="lunchFryday"
+                      value={lunchFryday}
+                      onChange={(e) => {
+                        setLunchFryday(e.target.value);
+                        if (e.target.value === 'true') {
+                          setPriceVeteran(priceVeteran + 50);
+                        } else if (
+                          e.target.value === 'false' &&
+                          priceVeteran >= 50 &&
+                          e.target.value === 'false' &&
+                          priceVeteran != 50 &&
+                          e.target.value === 'false' &&
+                          priceVeteran != 70 &&
+                          e.target.value === 'false' &&
+                          priceVeteran != 120
+                        ) {
+                          setPriceVeteran(priceVeteran - 50);
+                        }
+                      }}
+                    >
+                      <optgroup
+                        label={`Valor: 50 R$`}
+                        className="text-center text-md text-[#002776]"
+                      ></optgroup>
+                      <option value="" disabled className="text-md">
+                        Almoço na Sexta-feira?
+                      </option>
+                      <option value={false}>Não</option>
+                      <option value={true}>Sim</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <div className="mb-4 w-full">
+              <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                 <p className="text-gray-400 text-sm text-center">
                   Dia 24/06/2023
                 </p>
@@ -498,7 +504,13 @@ const RegisterFormUser = () => {
                         setPriceVeteran(priceVeteran + 70);
                       } else if (
                         e.target.value === 'false' &&
-                        priceVeteran >= 70
+                        priceVeteran >= 50 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 50 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 70 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 120
                       ) {
                         setPriceVeteran(priceVeteran - 70);
                       }
@@ -516,14 +528,14 @@ const RegisterFormUser = () => {
                   </select>
                 </div>
               </div>
-              <p className="sm:col-span-4 text-center">
-                Total:{' '}
-                <span className="text-[#002776] font-extrabold">
-                  {priceVeteran}
-                </span>{' '}
-                R$
-              </p>
             </div>
+            <p className="col-span-2 text-center">
+              Total:{' '}
+              <span className="text-[#002776] font-extrabold">
+                {priceVeteran}
+              </span>{' '}
+              R$
+            </p>
           </div>
         </div>
         {/* Camisas */}
@@ -534,7 +546,7 @@ const RegisterFormUser = () => {
                 <h3 className="my-5 text-center col-span-2 w-full">
                   Camisa do Encontro
                 </h3>
-                <div className="mb-4 w-full col-span-2 md:col-span-1">
+                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                   <p className="text-gray-400 text-sm text-center">
                     Camisa oficial do Encontro
                   </p>
@@ -543,10 +555,19 @@ const RegisterFormUser = () => {
                     id="buyShirt"
                     value={buyShirt}
                     onChange={(e) => {
-                      setBuyShirt(e.target.value === 'true');
+                      setBuyShirt(e.target.value);
                       if (e.target.value === 'true') {
                         setPriceVeteran(priceVeteran + 50);
-                      } else {
+                      } else if (
+                        e.target.value === 'false' &&
+                        priceVeteran >= 50 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 50 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 70 &&
+                        e.target.value === 'false' &&
+                        priceVeteran != 120
+                      ) {
                         setPriceVeteran(priceVeteran - 50);
                       }
                     }}
@@ -563,7 +584,7 @@ const RegisterFormUser = () => {
                   </select>
                 </div>
                 {buyShirt && (
-                  <div className="mb-4 w-full col-span-2 md:col-span-1">
+                  <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                     <p className="text-gray-400 text-sm text-center">
                       Selecione o tamanho da sua camisa
                     </p>
@@ -612,7 +633,7 @@ const RegisterFormUser = () => {
                   </select>
                 </div>
               </div>
-              <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 xl:grid-cols-2">
+              <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2">
                 {Array.from({ length: manyBuyShirt }, (_, i) => (
                   <div key={i} className="mb-4 w-full">
                     <p className="text-gray-400 text-sm text-center">

@@ -14,7 +14,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between gap-x-5">
         <Link href="/" className="text-white font-medium text-xl">
           <h2 className="text-[#002776] font-extrabold flex hover:bg-[#002776] hover:text-white p-2 rounded-xl">
-            A.M.I.G.A.
+            AMIGA
           </h2>
         </Link>
         <div className="flex gap-x-5">
