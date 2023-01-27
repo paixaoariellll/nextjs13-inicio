@@ -135,7 +135,6 @@ const RegisterFormAdmin = () => {
     });
     if (response.ok) {
       const result = await response.json();
-      console.log(result);
       window.location.href = '#Hero';
     } else {
       console.error();
@@ -162,7 +161,6 @@ const RegisterFormAdmin = () => {
       fetch(`https://brasilapi.com.br/api/cep/v2/${cepValidate}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setAddress(data.street);
           setNeighborhood(data.neighborhood);
           setCity(data.city);
