@@ -464,13 +464,7 @@ const RegisterFormAdmin = () => {
                           setPriceVeteran(priceVeteran + 50);
                         } else if (
                           e.target.value === 'false' &&
-                          priceVeteran >= 50 &&
-                          e.target.value === 'false' &&
-                          priceVeteran != 50 &&
-                          e.target.value === 'false' &&
-                          priceVeteran != 70 &&
-                          e.target.value === 'false' &&
-                          priceVeteran != 120
+                          priceVeteran >= 50
                         ) {
                           setPriceVeteran(priceVeteran - 50);
                         }
@@ -489,45 +483,42 @@ const RegisterFormAdmin = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
-                <p className="text-gray-400 text-sm text-center">
-                  Dia 24/06/2023
-                </p>
-                <div className="flex text-center gap-x-2">
-                  <select
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    id="lunchSaturday"
-                    value={lunchSaturday}
-                    onChange={(e) => {
-                      setLunchSaturday(e.target.value);
-                      if (e.target.value === 'true') {
-                        setPriceVeteran(priceVeteran + 70);
-                      } else if (
-                        e.target.value === 'false' &&
-                        priceVeteran >= 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 70 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 120
-                      ) {
-                        setPriceVeteran(priceVeteran - 70);
-                      }
-                    }}
-                  >
-                    <optgroup
-                      label={`Valor: 70 R$`}
-                      className="text-center text-md text-[#002776]"
-                    ></optgroup>
-                    <option value="" disabled className="text-md">
-                      Churrasco no Sábado?
-                    </option>
-                    <option value={false}>Não</option>
-                    <option value={true}>Sim</option>
-                  </select>
+
+              {lunchFryday && (
+                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
+                  <p className="text-gray-400 text-sm text-center">
+                    Dia 24/06/2023
+                  </p>
+                  <div className="flex text-center gap-x-2">
+                    <select
+                      className="border border-gray-400 p-2 rounded-lg w-full"
+                      id="lunchSaturday"
+                      value={lunchSaturday}
+                      onChange={(e) => {
+                        setLunchSaturday(e.target.value);
+                        if (e.target.value === 'true') {
+                          setPriceVeteran(priceVeteran + 70);
+                        } else if (
+                          e.target.value === 'false' &&
+                          priceVeteran >= 70
+                        ) {
+                          setPriceVeteran(priceVeteran - 70);
+                        }
+                      }}
+                    >
+                      <optgroup
+                        label={`Valor: 70 R$`}
+                        className="text-center text-md text-[#002776]"
+                      ></optgroup>
+                      <option value="" disabled className="text-md">
+                        Churrasco no Sábado?
+                      </option>
+                      <option value={false}>Não</option>
+                      <option value={true}>Sim</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <p className="col-span-2 text-center">
               Total:{' '}
@@ -541,131 +532,128 @@ const RegisterFormAdmin = () => {
         {/* Camisas */}
         <div className="card">
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
-            <div className="mb-4">
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
-                <h3 className="my-5 text-center col-span-2 w-full">
-                  Camisa do Encontro
-                </h3>
-                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
-                  <p className="text-gray-400 text-sm text-center">
-                    Camisa oficial do Encontro
-                  </p>
-                  <select
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    id="buyShirt"
-                    value={buyShirt}
-                    onChange={(e) => {
-                      setBuyShirt(e.target.value);
-                      if (e.target.value === 'true') {
-                        setPriceVeteran(priceVeteran + 50);
-                      } else if (
-                        e.target.value === 'false' &&
-                        priceVeteran >= 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 50 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 70 &&
-                        e.target.value === 'false' &&
-                        priceVeteran != 120
-                      ) {
-                        setPriceVeteran(priceVeteran - 50);
-                      }
-                    }}
-                  >
-                    <optgroup
-                      label={`Valor: 50 R$`}
-                      className="text-center text-md text-[#002776]"
-                    ></optgroup>
-                    <option value="" disabled className="text-md">
-                      Deseja a camisa oficial do encontro?
-                    </option>
-                    <option value={false}>Não</option>
-                    <option value={true}>Sim</option>
-                  </select>
-                </div>
-                {buyShirt && (
+            {lunchSaturday && (
+              <div className="mb-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
+                  <h3 className="my-5 text-center col-span-2 w-full">
+                    Camisa do Encontro
+                  </h3>
                   <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                     <p className="text-gray-400 text-sm text-center">
-                      Selecione o tamanho da sua camisa
+                      Camisa oficial do Encontro
                     </p>
                     <select
                       className="border border-gray-400 p-2 rounded-lg w-full"
-                      value={shirt.size}
-                      placeholder="Tamanho da camisa"
-                      onChange={(e) =>
-                        setShirt({ ...shirt, size: e.target.value })
-                      }
+                      id="buyShirt"
+                      value={buyShirt}
+                      onChange={(e) => {
+                        setBuyShirt(e.target.value);
+                        if (e.target.value === 'true') {
+                          setPriceVeteran(priceVeteran + 50);
+                        } else if (
+                          e.target.value === 'false' &&
+                          priceVeteran > 50 &&
+                          priceVeteran != 70
+                        ) {
+                          setPriceVeteran(priceVeteran - 50);
+                        }
+                      }}
                     >
-                      <option value="" disabled>
-                        Tamanho da camisa
+                      <optgroup
+                        label={`Valor: 50 R$`}
+                        className="text-center text-md text-[#002776]"
+                      ></optgroup>
+                      <option value="" disabled className="text-md">
+                        Deseja a camisa oficial do encontro?
                       </option>
-                      <option value="P">P</option>
-                      <option value="M">M</option>
-                      <option value="G">G</option>
-                      <option value="GG">GG</option>
-                      <option value="XG">XG</option>
-                      <option value="XXG">XXG</option>
-                      <option value="XXG">XXXG</option>
-                      <option value="XXG">XXXXG</option>
+                      <option value={false}>Não</option>
+                      <option value={true}>Sim</option>
                     </select>
                   </div>
-                )}
-                <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
-                  <p className="text-gray-400 text-sm text-center">
-                    Quantidade de camisas adicionais
-                  </p>
-                  <select
-                    className="mb-4 border w-full border-gray-400 p-2 rounded-lg"
-                    value={manyBuyShirt}
-                    onChange={(e) => {
-                      setManyBuyShirt(e.target.value);
-                    }}
-                  >
-                    <option value="" disabled>
-                      Deseja camisas adicionais?
-                    </option>
-                    <option value={0}>0</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
-                  </select>
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2">
-                {Array.from({ length: manyBuyShirt }, (_, i) => (
-                  <div key={i} className="mb-4 w-full">
+                  {buyShirt && (
+                    <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
+                      <p className="text-gray-400 text-sm text-center">
+                        Selecione o tamanho da sua camisa
+                      </p>
+                      <select
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        value={shirt.size}
+                        placeholder="Tamanho da camisa"
+                        onChange={(e) =>
+                          setShirt({ ...shirt, size: e.target.value })
+                        }
+                      >
+                        <option value="" disabled>
+                          Tamanho da camisa
+                        </option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
+                        <option value="XG">XG</option>
+                        <option value="XXG">XXG</option>
+                        <option value="XXG">XXXG</option>
+                        <option value="XXG">XXXXG</option>
+                      </select>
+                    </div>
+                  )}
+                  <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                     <p className="text-gray-400 text-sm text-center">
-                      Tamanho da camisa {i + 1}
+                      Quantidade de camisas adicionais
                     </p>
                     <select
-                      className="border border-gray-400 p-2 rounded-lg w-full"
-                      value={shirtSizes[`size${i + 1}`]}
-                      placeholder="Tamanho da camisa"
+                      className="mb-4 border w-full border-gray-400 p-2 rounded-lg"
+                      value={manyBuyShirt}
                       onChange={(e) => {
-                        setShirtSizes({
-                          ...shirtSizes,
-                          [`size${i + 1}`]: e.target.value,
-                        });
+                        setManyBuyShirt(e.target.value);
                       }}
                     >
                       <option value="" disabled>
-                        Tamanho da camisa
+                        Deseja camisas adicionais?
                       </option>
-                      <option value="P">P</option>
-                      <option value="M">M</option>
-                      <option value="G">G</option>
-                      <option value="GG">GG</option>
-                      <option value="XG">XG</option>
-                      <option value="XXG">XXG</option>
-                      <option value="XXG">XXXG</option>
-                      <option value="XXG">XXXXG</option>
+                      <option value={0}>0</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                      <option value={5}>5</option>
                     </select>
                   </div>
-                ))}
+                </div>
+                <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2">
+                  {Array.from({ length: manyBuyShirt }, (_, i) => (
+                    <div key={i} className="mb-4 w-full">
+                      <p className="text-gray-400 text-sm text-center">
+                        Tamanho da camisa {i + 1}
+                      </p>
+                      <select
+                        className="border border-gray-400 p-2 rounded-lg w-full"
+                        value={shirtSizes[`size${i + 1}`]}
+                        placeholder="Tamanho da camisa"
+                        onChange={(e) => {
+                          setShirtSizes({
+                            ...shirtSizes,
+                            [`size${i + 1}`]: e.target.value,
+                          });
+                        }}
+                      >
+                        <option value="" disabled>
+                          Tamanho da camisa
+                        </option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
+                        <option value="XG">XG</option>
+                        <option value="XXG">XXG</option>
+                        <option value="XXG">XXXG</option>
+                        <option value="XXG">XXXXG</option>
+                      </select>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
             <div className="mb-4">
               <table className="table-auto w-full text-center">
                 <thead>
@@ -903,7 +891,11 @@ const RegisterFormAdmin = () => {
               onClick={() => {
                 calculateTotalPrice();
                 handlePriceUpdate();
-                setShowSubmitButton(true);
+                if (totalPrice > 0) {
+                  setShowSubmitButton(true);
+                } else {
+                  setShowSubmitButton(false);
+                }
               }}
             >
               Atualizar valor total
