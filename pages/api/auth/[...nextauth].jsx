@@ -18,8 +18,12 @@ export default NextAuth({
         await db.disconnect();
         if (user && bcryptjs.compareSync(credentials.password, user.password)) {
           return {
+            _id: user._id,
             name: user.name,
+            lastName: user.lastName,
             email: user.email,
+            image: user.image,
+            isAdmin: user.isAdmin,
           };
         }
         throw new Error('E-mail ou senha inválido!');
