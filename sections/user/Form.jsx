@@ -472,9 +472,9 @@ const RegisterFormUser = () => {
                     >
                       <optgroup
                         label={`Valor: 50 R$`}
-                        className="text-center text-md text-[#002776]"
+                        className="text-center text-base text-[#002776]"
                       ></optgroup>
-                      <option value="" disabled className="text-md">
+                      <option value="" disabled className="text-base">
                         Almoço na Sexta-feira?
                       </option>
                       <option value={false}>Não</option>
@@ -508,9 +508,9 @@ const RegisterFormUser = () => {
                     >
                       <optgroup
                         label={`Valor: 70 R$`}
-                        className="text-center text-md text-[#002776]"
+                        className="text-center text-base text-[#002776]"
                       ></optgroup>
-                      <option value="" disabled className="text-md">
+                      <option value="" disabled className="text-base">
                         Churrasco no Sábado?
                       </option>
                       <option value={false}>Não</option>
@@ -561,9 +561,9 @@ const RegisterFormUser = () => {
                     >
                       <optgroup
                         label={`Valor: 50 R$`}
-                        className="text-center text-md text-[#002776]"
+                        className="text-center text-base text-[#002776]"
                       ></optgroup>
-                      <option value="" disabled className="text-md">
+                      <option value="" disabled className="text-base">
                         Deseja a camisa oficial do encontro?
                       </option>
                       <option value={false}>Não</option>
@@ -811,7 +811,7 @@ const RegisterFormUser = () => {
                       >
                         <optgroup
                           label={`Valor: 50 R$`}
-                          className="text-center text-md text-[#002776]"
+                          className="text-center text-base text-[#002776]"
                         ></optgroup>
                         <option value="" disabled>
                           Almoço na Sexta-feira?
@@ -858,7 +858,7 @@ const RegisterFormUser = () => {
                         >
                           <optgroup
                             label={`Valor: 70 R$`}
-                            className="text-center text-md text-[#002776]"
+                            className="text-center text-base text-[#002776]"
                           ></optgroup>
                           <option value="" disabled>
                             Almoço no Sábado?
@@ -887,7 +887,7 @@ const RegisterFormUser = () => {
           <div>
             <button
               type="button"
-              className="block text-md w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+              className="block text-base w-full justify-center rounded bg-[#002776] px-12 py-3 mx-auto my-2 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
               onClick={() => {
                 calculateTotalPrice();
                 handlePriceUpdate();
