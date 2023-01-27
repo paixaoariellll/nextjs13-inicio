@@ -155,16 +155,20 @@ const RegisterFormUser = () => {
     return optgroup;
   };
 
-  const checkCEP = (e) => {
-    const cepValidate = e.target.value.replace(/\D/g, '');
-    fetch(`https://brasilapi.com.br/api/cep/v2/${cepValidate}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAddress(data.logradouro);
-        setNeighborhood(data.bairro);
-        setCity(data.localidade);
-        setUf(data.uf);
-      });
+  const handleCEP = (event) => {
+    const cepValidate = event.target.value.replace(/\D/g, '');
+    setCEP(cepValidate);
+    if (cepValidate.length == 8) {
+      fetch(`https://brasilapi.com.br/api/cep/v2/${cepValidate}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setAddress(data.street);
+          setNeighborhood(data.neighborhood);
+          setCity(data.city);
+          setUf(data.state);
+        });
+    }
   };
 
   function handlePriceUpdate() {
@@ -336,15 +340,13 @@ const RegisterFormUser = () => {
             </h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
-                <InputMask
+                <input
                   className="w-full border border-gray-400 p-2 rounded-lg"
                   type="text"
-                  mask="99 999 - 999"
                   id="CEP"
                   placeholder="CEP"
                   value={CEP}
-                  onBlurCapture={checkCEP}
-                  onChange={(e) => setCEP(e.target.value)}
+                  onChange={handleCEP}
                   required
                 />
               </div>

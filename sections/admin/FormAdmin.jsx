@@ -155,16 +155,20 @@ const RegisterFormAdmin = () => {
     return optgroup;
   };
 
-  const checkCEP = (e) => {
-    const cepValidate = e.target.value.replace(/\D/g, '');
-    fetch(`https://viacep.com.br/ws/${cepValidate}/json/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAddress(data.logradouro);
-        setNeighborhood(data.bairro);
-        setCity(data.localidade);
-        setUf(data.uf);
-      });
+  const handleCEP = (event) => {
+    const cepValidate = event.target.value.replace(/\D/g, '');
+    setCEP(cepValidate);
+    if (cepValidate.length == 8) {
+      fetch(`https://brasilapi.com.br/api/cep/v2/${cepValidate}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setAddress(data.street);
+          setNeighborhood(data.neighborhood);
+          setCity(data.city);
+          setUf(data.state);
+        });
+    }
   };
 
   function handlePriceUpdate() {
@@ -336,15 +340,13 @@ const RegisterFormAdmin = () => {
             </h3>
             <div className="grid sm:grid-cols-1 gap-x-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               <div className="mb-4 w-full">
-                <InputMask
+                <input
                   className="w-full border border-gray-400 p-2 rounded-lg"
                   type="text"
-                  mask="99 999 - 999"
                   id="CEP"
                   placeholder="CEP"
                   value={CEP}
-                  onBlurCapture={checkCEP}
-                  onChange={(e) => setCEP(e.target.value)}
+                  onChange={handleCEP}
                   required
                 />
               </div>
@@ -903,30 +905,37 @@ const RegisterFormAdmin = () => {
           </div>
         </div>
         {/* Enviar inscrição */}
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {showSubmitButton && (
-            <div className="flex flex-col">
-              <div className="flex w-full justify-center mb-4">
-                <button
-                  type="submit"
-                  onClick={() => {
-                    calculateTotalPrice();
-                    handlePriceUpdate();
-                  }}
-                  className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-                >
-                  Enviar inscrição
-                </button>
+        {totalPrice == 0 ? (
+          <p className="text-red-500 text-sm text-center">
+            É necessário contratar pelo menos um dos serviços para a efetuação
+            de inscrição
+          </p>
+        ) : (
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {showSubmitButton && (
+              <div className="flex flex-col">
+                <div className="flex w-full justify-center mb-4">
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      calculateTotalPrice();
+                      handlePriceUpdate();
+                    }}
+                    className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+                  >
+                    Enviar inscrição
+                  </button>
+                </div>
+                <p className="text-sm">Não conseguiu realizar a inscrição?</p>
+                <Link href="./feedback">
+                  <p className="text-center text-sm hover:text-lg hover:font-extrabold">
+                    Clique aqui
+                  </p>
+                </Link>
               </div>
-              <p className="text-sm">Não conseguiu realizar a inscrição?</p>
-              <Link href="./feedback">
-                <p className="text-center text-sm hover:text-lg hover:font-extrabold">
-                  Clique aqui
-                </p>
-              </Link>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </form>
     </section>
   );
