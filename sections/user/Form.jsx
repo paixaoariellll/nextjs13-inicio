@@ -903,30 +903,37 @@ const RegisterFormUser = () => {
           </div>
         </div>
         {/* Enviar inscrição */}
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {showSubmitButton && (
-            <div className="flex flex-col">
-              <div className="flex w-full justify-center mb-4">
-                <button
-                  type="submit"
-                  onClick={() => {
-                    calculateTotalPrice();
-                    handlePriceUpdate();
-                  }}
-                  className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
-                >
-                  Enviar inscrição
-                </button>
+        {totalPrice == 0 ? (
+          <p className="text-red-500 text-sm text-center">
+            É necessário contratar pelo menos um dos serviços para a efetuação
+            de inscrição
+          </p>
+        ) : (
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {showSubmitButton && (
+              <div className="flex flex-col">
+                <div className="flex w-full justify-center mb-4">
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      calculateTotalPrice();
+                      handlePriceUpdate();
+                    }}
+                    className="block text-xl w-full rounded bg-[#002776] px-12 py-3 font-medium text-white hover:bg-[#009C3B] sm:w-auto"
+                  >
+                    Enviar inscrição
+                  </button>
+                </div>
+                <p className="text-sm">Não conseguiu realizar a inscrição?</p>
+                <Link href="./feedback">
+                  <p className="text-center text-sm hover:text-lg hover:font-extrabold">
+                    Clique aqui
+                  </p>
+                </Link>
               </div>
-              <p className="text-sm">Não conseguiu realizar a inscrição?</p>
-              <Link href="./feedback">
-                <p className="text-center text-sm hover:text-lg hover:font-extrabold">
-                  Clique aqui
-                </p>
-              </Link>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </form>
     </section>
   );
