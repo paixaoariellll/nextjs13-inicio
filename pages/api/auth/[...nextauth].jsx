@@ -5,9 +5,6 @@ import NextAuth from 'next-auth';
 import Users from '@/models/Users';
 
 export default NextAuth({
-  session: {
-    strategy: 'jwt',
-  },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -32,6 +29,23 @@ export default NextAuth({
   ],
   pages: {
     signIn: '/login',
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  callbacks: {
+    async jwtToken({ token, user }) {
+      const newToken = { ...token };
+      if (user?._id) newToken._id = user._id;
+      if (user?.isAdmin) newToken.isAdmin = user.isAdmin;
+      return newToken;
+    },
+    async jwtSession({ session, token }) {
+      const newSession = { ...session };
+      if (token?._id) newSession._id = token._id;
+      if (token?.isAdmin) newSession.isAdmin = token.isAdmin;
+      return newSession;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
