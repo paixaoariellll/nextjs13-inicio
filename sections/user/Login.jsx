@@ -97,15 +97,6 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between pr-16 mb-4">
-            <p className="text-sm">Não possui uma conta?</p>
-            <Link
-              href={'./register'}
-              className="text-sm hover:underline hover:text-blue-500"
-            >
-              Cadastre-se
-            </Link>
-          </div>
 
           <button
             type="submit"
