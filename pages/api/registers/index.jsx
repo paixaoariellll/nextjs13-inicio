@@ -14,7 +14,7 @@ const postHandler = async (req, res) => {
 
 const getHandler = async (req, res) => {
   await db.connect();
-  const registers = await Registers.findById(req.query.id);
+  const registers = await Registers.find();
   await db.disconnect();
   res.send(registers);
 };
