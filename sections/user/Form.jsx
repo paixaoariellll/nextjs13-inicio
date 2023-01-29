@@ -448,9 +448,7 @@ const RegisterFormUser = () => {
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
             <div className="mb-4">
               <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-x-5">
-                <h3 className="my-5 text-center col-span-2 w-full">
-                  Refeições
-                </h3>
+                <h3 className="my-5 text-center col-span-2 w-full">Veterano</h3>
                 <div className="col-span-2 mb-4 max-w-xs w-full flex flex-col mx-auto">
                   <p className="text-gray-400 text-sm text-center">
                     Dia 23/06/2023
